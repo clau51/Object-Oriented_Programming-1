@@ -11,6 +11,7 @@ my professor provided to complete my workshops and assignments.
 
 #include <iostream>
 #include "File.h"
+#include "ShoppingRec.h"
 
 using namespace std;
 
@@ -41,7 +42,7 @@ namespace sdds
         int flag = 0;
         bool success = fscanf(sfptr, "%[^,],%d,%d\n",
             rec->m_title, &rec->m_quantity, &flag) == 3;
-        rec->m_bought = !!flag;
+        rec->m_bought = !!flag; // ??
         return success;
     }
 

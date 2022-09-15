@@ -11,6 +11,7 @@ my professor provided to complete my workshops and assignments.
 #include "ShoppingList.h"
 #include "File.h"
 #include "Utils.h"
+#include "ShoppingRec.h"
 
 using namespace std;
 
