@@ -41,7 +41,6 @@ namespace sdds
 
 
 	bool openFileForRead(const char* const file);
-	//bool freadDictionary(Dictionary* dictionary);
 	bool freadDefinition(Definition* definition);
 	bool freadWord(Word* word);
 	void closeFile();
