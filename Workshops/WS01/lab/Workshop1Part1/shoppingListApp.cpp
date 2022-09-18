@@ -22,7 +22,7 @@ int listMenu();
 
 int main()
 {
-    const bool APP_OS_WINDOWS = true;
+    const bool APP_OS_WINDOWS = false;
 
     bool done = false;
     loadList();

@@ -44,7 +44,7 @@ namespace sdds
         {
             cstr[i] = buf[i];
         }
-        cstr[i] = 0; // ??
+        cstr[i] = 0;
     }
 
     int readInt(int min, int max)

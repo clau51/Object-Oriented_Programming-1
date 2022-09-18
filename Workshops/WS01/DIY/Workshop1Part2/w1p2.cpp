@@ -78,63 +78,63 @@ int main()
 		std::cout << "\n";
 		sdds::DisplayWord("computer");
 
-		//sdds::SaveDictionary("dictionary_better.txt");
+		sdds::SaveDictionary("dictionary_better.txt");
 	}
-	//else
-	//{
-	//	cout << "ERROR: There is no file; the function 'LoadDictionary()' should return non-zero value.\n";
-	//	cout << "       Keep working on your code.\n";
+	else
+	{
+		cout << "ERROR: There is no file; the function 'LoadDictionary()' should return non-zero value.\n";
+		cout << "       Keep working on your code.\n";
 
-	//}
-	//cout << "------------------------------------------------------------\n\n";
-
-
-	//// USAGE CASE #3: load a dictionary from a file that doesn't exist
-	//cout << "------------------------------------------------------------\n";
-	//cout << "USAGE CASE #3: bad input file\n";
-	//cout << "------------------------------------------------------------\n";
-	//if (sdds::LoadDictionary("missing_better.txt") == 0)
-	//{
-	//	cout << "ERROR: There is no file; the function 'LoadDictionary()' should return non-zero value.\n";
-	//	cout << "       Keep working on your code.\n";
-	//}
-	//else
-	//{
-	//	cout << "SUCCESS\n";
-
-	//	// the loaded dictionary should be empty now
-	//	// the following function should not find anything
-	//	sdds::DisplayWord("apple");
-	//}
-	//cout << "------------------------------------------------------------\n\n";
+	}
+	cout << "------------------------------------------------------------\n\n";
 
 
-	//// USAGE CASE #4: load the previously saved distionary
-	//cout << "------------------------------------------------------------\n";
-	//cout << "USAGE CASE #4: loading the previously saved dictionary\n";
-	//cout << "------------------------------------------------------------\n";
-	//if (sdds::LoadDictionary("dictionary_better.txt") == 0)
-	//{
-	//	cout << "SUCCESS\n";
+	// USAGE CASE #3: load a dictionary from a file that doesn't exist
+	cout << "------------------------------------------------------------\n";
+	cout << "USAGE CASE #3: bad input file\n";
+	cout << "------------------------------------------------------------\n";
+	if (sdds::LoadDictionary("missing_better.txt") == 0)
+	{
+		cout << "ERROR: There is no file; the function 'LoadDictionary()' should return non-zero value.\n";
+		cout << "       Keep working on your code.\n";
+	}
+	else
+	{
+		cout << "SUCCESS\n";
 
-	//	std::cout << "Search for the word 'apple'\n\n";
-	//	sdds::DisplayWord("apple");
+		// the loaded dictionary should be empty now
+		// the following function should not find anything
+		sdds::DisplayWord("apple");
+	}
+	cout << "------------------------------------------------------------\n\n";
 
-	//	std::cout << "\n\nSearch for the word 'language'\n\n";
-	//	sdds::DisplayWord("language");
 
-	//	std::cout << "\n\nSearch for the word 'computer'\n\n";
-	//	sdds::DisplayWord("computer");
+	// USAGE CASE #4: load the previously saved distionary
+	cout << "------------------------------------------------------------\n";
+	cout << "USAGE CASE #4: loading the previously saved dictionary\n";
+	cout << "------------------------------------------------------------\n";
+	if (sdds::LoadDictionary("dictionary_better.txt") == 0)
+	{
+		cout << "SUCCESS\n";
 
-	//	std::cout << "\n\nSearch for the word 'oop'\n\n";
-	//	sdds::DisplayWord("oop");
-	//}
-	//else
-	//{
-	//	cout << "ERROR: The dictionary should be valid; the function 'LoadDictionary()' should return non-zero value.\n";
-	//	cout << "       Keep working on your code.\n";
-	//}
-	//cout << "------------------------------------------------------------\n\n";
+		std::cout << "Search for the word 'apple'\n\n";
+		sdds::DisplayWord("apple");
+
+		std::cout << "\n\nSearch for the word 'language'\n\n";
+		sdds::DisplayWord("language");
+
+		std::cout << "\n\nSearch for the word 'computer'\n\n";
+		sdds::DisplayWord("computer");
+
+		std::cout << "\n\nSearch for the word 'oop'\n\n";
+		sdds::DisplayWord("oop");
+	}
+	else
+	{
+		cout << "ERROR: The dictionary should be valid; the function 'LoadDictionary()' should return non-zero value.\n";
+		cout << "       Keep working on your code.\n";
+	}
+	cout << "------------------------------------------------------------\n\n";
 
     return 0;
 }

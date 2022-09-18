@@ -47,13 +47,12 @@ namespace sdds
 	void closeFile();
 	int LoadDictionary(const char* const file);
 	int searchWordIndex(const char* string);
-	void justTesting();
-	int sendTotalWords();
 	void printTypeDefinition(const int index);
-	bool openFileForOverwrite(const char* const file);
-	Dictionary getNewRecord(const char* word, const char* type, const char* definition);
-	int emptyWordIndex();
+	bool openFileForWrite(const char* const file);
 	int getInt(int min, int max);
+	void clearList();
+	void fwriteDictionary();
+
 }
 
 
