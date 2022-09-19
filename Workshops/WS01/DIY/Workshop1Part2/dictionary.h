@@ -3,17 +3,9 @@
 
 namespace sdds
 {
-	extern int noDefRecs;
-	//extern int noOfRecs;
-	extern int noWordRecs;
-
-	//extern Word wordRecs[MAX_WORDS];
-	//extern Definition defRecs[MAX_DEF];
-
 	extern struct Dictionary dictRecs;
-	//extern struct Word wordRecs;
-	//extern struct Definition defRecs;
-
+	extern int noDefRecs;
+	extern int noWordRecs;
 	const int MAX_WORD_LEN = 64;
 	const int MAX_DEF_LEN = 1024;
 	const int MAX_WORDS = 100;
@@ -36,7 +28,6 @@ namespace sdds
 	{
 		int totalWord;
 		Word words[MAX_WORDS];
-
 	};
 
 
@@ -51,7 +42,10 @@ namespace sdds
 	int getInt(int min, int max);
 	void clearList();
 	void fwriteDictionary();
-
+	int getInt(int min, int max);
+	void copyTypeDefinition(int wordIndex, int defIndex, const char* type, const char* definition);
+	bool checkLen(const char* string, int maxLength);
+	void printLenError();
 }
 
 

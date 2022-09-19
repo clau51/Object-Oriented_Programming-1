@@ -3,7 +3,6 @@
 #include <iostream>
 #include <cstring>
 #include "dictionary.h"
-#include "word.h"
 
 
 using namespace std;
@@ -17,6 +16,7 @@ namespace sdds
 	Definition defRecs[MAX_DEF] = { {{0}} };
 	FILE* sfptr = nullptr;
 
+	//Discard previously existing dictionary
 	void clearList()
 	{
 		int i;
@@ -27,25 +27,29 @@ namespace sdds
 			dictRecs.words[i] = emptyWord;
 		}
 	}
-	
+
+	//Open file and check if NULL
 	bool openFileForRead(const char* const file)
 	{
 		sfptr = fopen(file, "r");
 		return sfptr != NULL;
 	}
 
+	//Write in file and check if NULL
 	bool openFileForWrite(const char* const file)
 	{
 		sfptr = fopen(file, "w");
 		return sfptr != NULL;
 	}
 
+	//Reads formatted input into stream for word
 	bool freadWord(Word* word)
 	{
 		bool success = fscanf(sfptr, "%[^\n]", word->word);
 		return success;
 	}
 
+	//Reads formatted input into stream for definition
 	bool freadDefinition(Definition* definition) {
 		bool success = fscanf(sfptr, "%[^:]: %[^\n]", 
 			definition->type, definition->definition);
@@ -153,6 +157,47 @@ namespace sdds
 		}
 	}
 
+	//Should be in utils.cpp file (matrix doesn't allow submission)
+	//Get input integer
+	int getInt(int min, int max)
+	{
+		int number;
+		int flag = 0;
 
+		do
+		{
+			flag = 0;
+			cin >> number;
+			if (number < min || number > max)
+			{
+				cout << "The number you have entered is invalid. Please enter a valid number: ";
+				flag = 1;
+			}
+		} while (flag == 1);
+
+		return number;
+	}
+
+	void copyTypeDefinition(int wordIndex, int defIndex, const char* type, const char* definition)
+	{
+		strcpy(dictRecs.words[wordIndex].definitions[defIndex].type, type);
+		strcpy(dictRecs.words[wordIndex].definitions[defIndex].definition, definition);
+	}
+
+	bool checkLen(const char* string, int maxLength)
+	{
+		return strlen(string) < unsigned(maxLength + 1);
+	}
+
+	void printLenError()
+	{
+		cout << "ERROR: Exceeded maximum length!" << endl;
+	}
+
+	// MAX WORDS = 100 words
+	// MAX DEFINITIONS = 8 definitions
+	// MAX WORD LENGTH = 64 characters
+	// MAX TYPE LENGTH = 64 characters
+	// MAX DEF LENGTH = 1024 characters
 
 }
