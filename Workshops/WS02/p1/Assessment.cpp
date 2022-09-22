@@ -7,11 +7,11 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <iostream>
-#include <cstring>
+#include <cstdio>
 #include "Assessment.h"
+#include "Utils.h"
 
-using namespace std;
+using namespace sdds;
 
 namespace sdds
 {
@@ -56,7 +56,10 @@ namespace sdds
 		for (int i = 0; i < size; i++)
 		{
 			delete aptr[i].m_mark;
+			aptr[i].m_mark = nullptr;
+
 			delete[] aptr[i].m_title;
+			aptr[i].m_title = nullptr;
 		}
 		delete[] aptr;
 		aptr = nullptr;
