@@ -19,7 +19,6 @@
 
 namespace sdds {
    // Opens a file and keeps the file pointer in the File.cpp (file scope)
-	extern FILE* fptr;
 	bool openFile(const char filename[]);
 
    //bool fReadFile(Population& population);
@@ -30,6 +29,7 @@ namespace sdds {
    // of the records in the file
    int noOfRecords();
 
+   bool read(Population& population);
 }
 #endif // !SDDS_FILE_H_
 

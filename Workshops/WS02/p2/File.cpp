@@ -43,6 +43,10 @@ namespace sdds {
       if (fptr) fclose(fptr);
    }
 
-
+   bool read(Population& population)
+   {
+       bool success = fscanf(fptr, "%3[^,],%d\n", population.postalCode, &population.population) == 2;
+       return success;
+   }
 
 }

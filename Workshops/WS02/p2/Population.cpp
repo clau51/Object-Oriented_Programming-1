@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <cstring>
 #include "Population.h"
 #include "File.h"
 
@@ -9,51 +10,57 @@ namespace sdds {
 	Population* aptr = nullptr;
 	int nRecords = 0;
 
-	bool read(Population& population, FILE* fptr)
-	{
-		bool success = fscanf(fptr, "%3[^,],%d\n", population.postalCode, &population.population) == 2;
-		return success;
-	}
-
 	bool load(const char* const file)
 	{
-		int records;
-		bool ok = false;
+		bool ok = true;
+		bool success = false;
 
 		if (openFile(file))
 		{
 			nRecords = noOfRecords();
 			aptr = new Population[nRecords];
 
-			for (int i = 0; i < nRecords && read(aptr[i], fptr); i++)
-			{
-				;
+			for (int i = 0; i < nRecords && ok; i++)
+			{ 
+				success = true;
+				if (!read(aptr[i]))
+				{
+					success = false;
+					ok = false;
+					cout << "Error: incorrect number of records read; the data is possibly corrupted!" << endl;
+				}
 			}
-			ok = true;
 		}
-		return ok;
+		else
+		{
+			cout << "Could not open data file: " << file << endl;
+		}
+		return success;
 	}
 
 	void bubbleSort()
 	{
 		int i, j;
-		int temp;
+		int tempPopulation;
+		char tempPostal[3 + 1];
 
-		for (i = nRecords; i > 0; i--)
+		for (i = nRecords - 1; i > 0; i--)
 		{
 			for (j = 0; j < i; j++)
 			{
 				if (aptr[j].population > aptr[j + 1].population)
 				{
-					temp = aptr[j].population;
+					strcpy(tempPostal, aptr[j].postalCode);
+					strcpy(aptr[j].postalCode, aptr[j + 1].postalCode);
+					strcpy(aptr[j + 1].postalCode, tempPostal);
+
+					tempPopulation = aptr[j].population;
 					aptr[j].population = aptr[j + 1].population;
-					aptr[j + 1].population = temp;
+					aptr[j + 1].population = tempPopulation;
 				}
 			}
 		}
 	}
-
-	// 0 1 2 3 4 5 6 7 8 9 10
 	
 	void printSeperator(char seperator, int nSeperator)
 	{
@@ -61,6 +68,18 @@ namespace sdds {
 		{
 			cout << seperator;
 		}
+	}
+
+	int calculateSum()
+	{
+		int totalPopulation = 0;
+
+		for (int i = 0; i < nRecords; i++)
+		{
+			totalPopulation += aptr[i].population;
+		}
+
+		return totalPopulation;
 	}
 
 	
@@ -72,9 +91,11 @@ namespace sdds {
 		cout << endl;
 		for (int i = 0; i < nRecords; i++)
 		{
-			cout << aptr[i].postalCode << " " << aptr[i].population << endl;
+			cout << (i + 1) << "- " << aptr[i].postalCode << ":  " << aptr[i].population << endl;
 		}
 		printSeperator('-', 25);
+		cout << endl;
+		cout << "Population of Canada: " << calculateSum() << endl;
 	}
 
 	void deallocateMemory()
@@ -83,24 +104,3 @@ namespace sdds {
 		aptr = nullptr;
 	}
 }
-
-
-//Open file
-//Check if null
-//If successful, assign dynamic memory & read into struct
-//After read in dynamically, sort the file.
-//print
-//deallocate
-
-
-	//bool read(char* postalCode, FILE* fptr)
-	//{
-	//	bool success = fscanf(fptr, "%3[^,]", postalCode) == 1;
-	//	return success;
-	//}
-
-	//bool read(int& population, FILE* fptr)
-	//{
-	//	bool success = fscanf(fptr, ",%d\n", &population) == 1;
-	//	return success;
-	//}

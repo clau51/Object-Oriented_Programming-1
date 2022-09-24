@@ -12,19 +12,11 @@ namespace sdds
 		int population;
 	};
 
-	//int checkRecords(const char* const file);
-
 	bool load(const char* const file);
 	void display();
 	void deallocateMemory();
-	bool fReadFile(Population& population, FILE* fptr);
-	//////bool fReadFile(Population& population);
-	bool read(char* postalCode, FILE* fptr);
-	bool read(int& population, FILE* fptr);
 	void bubbleSort();
-	bool read(Population& population, FILE* fptr);
-	void printSeperator();
-		//int read(Population*& aptr, FILE* fptr);
-
+	void printSeperator(char seperator, int nSeperator);
+	int calculateSum();
 }
 #endif // SDDS_POPULATION_H_
