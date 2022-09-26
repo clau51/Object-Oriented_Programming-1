@@ -24,6 +24,7 @@ int main() {
       // display all the records
       display();
    }
+
    // in any case delete the dynmaic memory if it is allocated
    deallocateMemory();
    return 0;

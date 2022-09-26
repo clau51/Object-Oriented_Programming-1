@@ -10,7 +10,7 @@
 // Revision History
 // -----------------------------------------------------------
 // Name            Date            Reason
-//
+// Carmen Lau	   Sept 24, 2022   Add function prototype
 /////////////////////////////////////////////////////////////////
 ***********************************************************************/
 #ifndef SDDS_FILE_H_
@@ -21,23 +21,14 @@ namespace sdds {
    // Opens a file and keeps the file pointer in the File.cpp (file scope)
 	bool openFile(const char filename[]);
 
-   //bool fReadFile(Population& population);
-
    // Closes the open file
    void closeFile();
+
    // Finds the records kept in the file to be used for the dynamic memory allocation 
    // of the records in the file
    int noOfRecords();
 
+   //Reads the records from file and loads them
    bool read(Population& population);
 }
 #endif // !SDDS_FILE_H_
-
-
-//Make struct - postalCode, population
-//Open file
-//Check if null
-//If successful, read into struct array dynamically
-//After read in dynamically, sort the file.
-//print
-//deallocate

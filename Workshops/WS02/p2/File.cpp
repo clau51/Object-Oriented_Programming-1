@@ -10,7 +10,7 @@
 // Revision History
 // -----------------------------------------------------------
 // Name            Date            Reason
-//
+// Carmen Lau      Sept 24, 2022   Define function
 /////////////////////////////////////////////////////////////////
 ***********************************************************************/
 #define _CRT_SECURE_NO_WARNINGS
@@ -43,6 +43,7 @@ namespace sdds {
       if (fptr) fclose(fptr);
    }
 
+   //Reads the records from file and loads them
    bool read(Population& population)
    {
        bool success = fscanf(fptr, "%3[^,],%d\n", population.postalCode, &population.population) == 2;

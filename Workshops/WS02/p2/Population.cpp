@@ -1,3 +1,11 @@
+//Name: Carmen Lau
+//Student ID: 166689216
+//Email: clau51@myseneca.ca
+//Date: September 24, 2022
+//Section: NBB
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>
@@ -9,36 +17,43 @@ namespace sdds {
 
 	Population* aptr = nullptr;
 	int nRecords = 0;
-
-	bool load(const char* const file)
+	
+	//Load the data from file into dynamic memory
+	bool load(const char* file)
 	{
-		bool ok = true;
-		bool success = false;
+		bool success = true;
 
 		if (openFile(file))
 		{
+			int i;
+			int counter = 0;
 			nRecords = noOfRecords();
+			
 			aptr = new Population[nRecords];
 
-			for (int i = 0; i < nRecords && ok; i++)
+			for (i = 0; i < nRecords && read(aptr[i]); i++)
 			{ 
-				success = true;
-				if (!read(aptr[i]))
-				{
-					success = false;
-					ok = false;
-					cout << "Error: incorrect number of records read; the data is possibly corrupted!" << endl;
-				}
+				counter++;
+			}
+			
+			if (counter != nRecords)
+			{
+				cout << "Error: incorrect number of records read; the data is possibly corrupted!" << endl;
+				success = false;
 			}
 		}
 		else
 		{
 			cout << "Could not open data file: " << file << endl;
+			success	= false;
 		}
+		closeFile();
+		
 		return success;
 	}
 
-	void bubbleSort()
+	//Sort data by population in ascending order
+	void sort()
 	{
 		int i, j;
 		int tempPopulation;
@@ -50,18 +65,30 @@ namespace sdds {
 			{
 				if (aptr[j].population > aptr[j + 1].population)
 				{
-					strcpy(tempPostal, aptr[j].postalCode);
-					strcpy(aptr[j].postalCode, aptr[j + 1].postalCode);
-					strcpy(aptr[j + 1].postalCode, tempPostal);
-
-					tempPopulation = aptr[j].population;
-					aptr[j].population = aptr[j + 1].population;
-					aptr[j + 1].population = tempPopulation;
+					copy(tempPostal, j);
+					copy(tempPopulation, j);
 				}
 			}
 		}
 	}
-	
+
+	//Copies the postal code from source to destination
+	void copy(char* tempPostal, int j)
+	{
+		strcpy(tempPostal, aptr[j].postalCode);
+		strcpy(aptr[j].postalCode, aptr[j + 1].postalCode);
+		strcpy(aptr[j + 1].postalCode, tempPostal);
+	}
+
+	//Copies the population from source to destination
+	void copy(int& tempPopulation, int j)
+	{
+		tempPopulation = aptr[j].population;
+		aptr[j].population = aptr[j + 1].population;
+		aptr[j + 1].population = tempPopulation;
+	}
+
+	//Print divider
 	void printSeperator(char seperator, int nSeperator)
 	{
 		for (int i = 0; i < nSeperator; i++)
@@ -70,6 +97,7 @@ namespace sdds {
 		}
 	}
 
+	//Calculate the total population
 	int calculateSum()
 	{
 		int totalPopulation = 0;
@@ -82,10 +110,10 @@ namespace sdds {
 		return totalPopulation;
 	}
 
-	
+	//Display data
 	void display()
 	{
-		bubbleSort();
+		sort();
 		cout << "Postal Code: population" << endl;
 		printSeperator('-', 25);
 		cout << endl;
@@ -98,6 +126,7 @@ namespace sdds {
 		cout << "Population of Canada: " << calculateSum() << endl;
 	}
 
+	//Deallocate memory
 	void deallocateMemory()
 	{
 		delete[] aptr;
