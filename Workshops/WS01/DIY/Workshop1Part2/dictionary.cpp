@@ -18,8 +18,6 @@ namespace sdds
 	int noDefRecs = 0;
 	int noWordRecs = 0;
 	Dictionary dictRecs = { 0 };
-	Word wordRecs[MAX_WORDS] = { {0} };
-	Definition defRecs[MAX_DEF] = { {{0}} };
 	FILE* sfptr = nullptr;
 
 	//Discard previously existing dictionary
