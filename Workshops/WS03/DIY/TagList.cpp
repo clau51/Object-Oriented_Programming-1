@@ -1,3 +1,10 @@
+//Name: Carmen Lau
+//Student ID: 166689216
+//Email: clau51@myseneca.ca
+//Date: October 3, 2022
+//Section: NBB
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
 #include <iostream>
 #include "TagList.h"
 #include "NameTag.h"
@@ -17,7 +24,7 @@ namespace sdds
 	}
 	void TagList::add(const NameTag& nameTag)
 	{
-		if ((m_nameTags != nullptr) && (nameTag.length() <= 50)) // do i need?
+		if ((m_nameTags != nullptr) && (nameTag.length() <= 50))
 		{
 			m_nameTags[m_numOfTags] = nameTag;
 			m_numOfTags++;

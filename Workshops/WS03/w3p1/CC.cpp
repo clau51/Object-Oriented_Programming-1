@@ -4,6 +4,7 @@
 //Date: September 30, 2022
 //Section: NBB
 //I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+//Resubmission: Edit to use to read 71 characters (line 121)
 
 #include <iostream>
 #include "CC.h"
@@ -117,7 +118,7 @@ namespace sdds
 		cin >> tempYear;
 		if (!cin.fail()) set(tempName, tempCredit, tempCvv, tempMonth, tempYear);
 		else cin.clear();
-		cin.ignore(2000, '\n');
+		cin.ignore(71, '\n');
 
 		return isEmpty() == false;
 	}
