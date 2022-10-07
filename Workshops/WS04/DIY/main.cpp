@@ -43,17 +43,17 @@ int main()
         cout << "Please enter number of passengers: ";
         cin >> num;
         cin.ignore(1000, '\n');
-        t = new TourBus(num);
-        if (t->validTour())
+        t = new TourBus(num); 
+        if (t->validTour()) //dereferenced so i can access the object
         {
-            if (num == 4)
+            if (num == 4) 
             {
                 depart(t->board());
                 done = true;
             }
             else
             {
-                depart(*t);
+                depart(*t); //*t t[0] t[1] t[2] t[3]
             }
         }
         else

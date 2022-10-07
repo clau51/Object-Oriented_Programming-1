@@ -5,12 +5,13 @@
 
 namespace sdds
 {
+	//bool validTour(const <- cannot change receiving paramter) const <- cannot change member variables
 	class TourBus
 	{
 	private:
-		TourTicket* tourPassenger;
-		int totalPassengers;
-		int boarded;
+		TourTicket* m_tourPassenger; //change to m_
+		int m_totalPassengers;
+		int m_boarded;
 		//TourBus t;
 		//t = nullptr;
 		//
@@ -23,10 +24,11 @@ namespace sdds
 		TourBus(int num);
 		~TourBus();
 		bool validTour()const; //is const because it doesn't change the return type or object?
-		bool validTour(int num);
+		bool validTour(int num)const;
 		void startTheTour()const;
 		TourBus& board();
-		//std::ostream& format(std::ostream& coutRef, int width);
+		bool allBoarded()const;
+		//std::ostream& format(int width, char* string)const;
 	};
 }
 
