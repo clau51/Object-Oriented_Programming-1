@@ -16,17 +16,32 @@ namespace sdds
 	{
 	private:
 		NameTag* m_nameTags;
-		int m_numOfTags{};
+		int m_numOfTags;
 
 	public:
+		//Check if list is empty
+		bool isEmpty();
+
+		//Set TagList to empty state
 		void set();
+
+		//Dynamically allocate memory for array of NameTags
 		void set(int num);
+
+		//Adds a NameTag to the TagList
 		void add(const NameTag& nt);
+
+		//Print all tags with the same size that is the frame size of the longest name in the list
 		void print();
+		
+		//Deallocates memory for array of NameTags and sets TagList to safe empty state
 		void cleanup();
+
+		//Get index of the TagList that has the longest name
 		int largest()const;
 	};
 
+	//Print top or bottom of border frame
 	std::ostream& printBorder(int length, char border);
 
 }

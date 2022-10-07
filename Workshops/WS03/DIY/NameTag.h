@@ -16,12 +16,18 @@ namespace sdds
 	{
 	private:
 		char m_name[MAX_NAME_LEN + 1];
+
+		//Validate if string is less than max chars and if it is not empty
 		bool validate(const char* name)const;
 
 	public:
-		
+		//Print name tag
 		void print()const;
+		
+		//Set name tag
 		void set(const char* name);
+
+		//Get length of name
 		int length()const;
 	};
 }

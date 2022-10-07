@@ -12,30 +12,44 @@
 using namespace std;
 namespace sdds
 {
+	//Check if list is empty
+	bool TagList::isEmpty()
+	{
+		return m_nameTags == nullptr;
+	}
+
+	//Set TagList to empty state
 	void TagList::set()
 	{
 		m_nameTags = nullptr;
 		m_numOfTags = 0;
 	}
+
+	//Dynamically allocate memory for array of NameTags
 	void TagList::set(int num)
 	{
 		cleanup();
-		m_nameTags = new NameTag[num];
+		if (isEmpty())
+		{
+			m_nameTags = new NameTag[num];
+		}
 	}
+
+	//Adds a NameTag to the TagList
 	void TagList::add(const NameTag& nameTag)
 	{
-		if ((m_nameTags != nullptr) && (nameTag.length() <= 50))
-		{
-			m_nameTags[m_numOfTags] = nameTag;
-			m_numOfTags++;
-		}
-
+		m_nameTags[m_numOfTags] = nameTag;
+		m_numOfTags++;
 	}
+
+	//Print all tags with the same size that is the frame size of the longest name in the list
 	void TagList::print()
 	{
+		//Get the index with the largest name
 		int largestIndex = largest();
 		for (int i = 0; i < m_numOfTags; i++)
 		{
+			//Get the largest name for the frame size
 			int largestLength = m_nameTags[largestIndex].length();
 			printBorder(largestLength + 4, '*') << endl;
 			
@@ -50,12 +64,14 @@ namespace sdds
 		}
 	}
 	
+	//Deallocates memory for array of NameTags and sets TagList to safe empty state
 	void TagList::cleanup()
 	{
 		delete[] m_nameTags;
 		set();
 	}
 
+	//Get index of the TagList that has the longest name
 	int TagList::largest()const
 	{
 		int largestIndex = 0;
@@ -69,6 +85,7 @@ namespace sdds
 		return largestIndex;
 	}
 
+	//Print top or bottom of border frame
 	ostream& printBorder(int length, char border)
 	{
 		for (int i = 0; i < length; i++)
