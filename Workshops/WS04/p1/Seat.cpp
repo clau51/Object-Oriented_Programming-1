@@ -4,6 +4,7 @@
 //Date: October 7, 2022
 //Section: NBB
 //I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+//Resubmission Reason: Updated Seat::read(istream& cinRef) function to check stream
 
 #define _CRT_SECURE_NO_WARNINGS
 #include "Seat.h"
@@ -184,9 +185,10 @@ namespace sdds {
 		char letter;
 
 		cinRef.getline(name, MAX_NAME_LEN, ',');
+		if (!cinRef.fail());
 		cinRef >> row;
+		if (!cinRef.fail());
 		cinRef >> letter;
-		cinRef.ignore(1000, '\n');
 		if (!cinRef.fail())
 		{
 			alAndCp(name);
@@ -194,7 +196,9 @@ namespace sdds {
 			{
 				set(row, letter);
 			}
-		}		
+		}
+		else cin.clear();
+		cinRef.ignore(1000, '\n');
 		
 		return cinRef;		
 	}

@@ -1,3 +1,10 @@
+//Name: Carmen Lau
+//Student ID: 166689216
+//Email: clau51@myseneca.ca
+//Date: October 9, 2022
+//Section: NBB
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
 #include <iostream>
 #include "TourBus.h"
 #include "TourTicket.h"
@@ -11,6 +18,7 @@ namespace sdds
 	const int FULL_TOUR = 22;
 	const int MAX_NAME_LEN = 40;
 	
+	//Reset TourBus object to a safe empty state
 	TourBus& TourBus::reset()
 	{
 		delete[] m_tourPassenger;
@@ -18,15 +26,17 @@ namespace sdds
 		m_totalPassengers = 0;
 		m_boarded = 0;
 
-		return *this; // is "t" this object? //
+		return *this;
 	}
-		
+	
+	//Constructor - set to a safe empty state
 	TourBus::TourBus()
 	{
 		m_tourPassenger = nullptr;
 		reset();
 	}
 
+	//Constructor - set to a safe empty state and assign dynamic memory
 	TourBus::TourBus(int num)
 	{
 		m_tourPassenger = nullptr;
@@ -38,30 +48,34 @@ namespace sdds
 		}
 	}
 
+	//Check if dynamic memory is allocated
 	bool TourBus::validTour()const
 	{
 		return m_tourPassenger != nullptr;
 	}
 	
+	//Check if tour size is valid
 	bool TourBus::validTour(int num)const
 	{
 		return (num == PRIVATE_TOUR || num == MINI_TOUR || num == FULL_TOUR);
 	}
 	
+	//Destructor - deallocate dynamic memory
 	TourBus::~TourBus()
 	{
 		delete[] m_tourPassenger;
 	}
 	
+	//Check if the correct number of passengers have boarded
 	bool TourBus::allBoarded()const
 	{
 		return m_boarded == m_totalPassengers;
 	}
 
-	void TourBus::startTheTour()const //all member functions used in this method must also be const
+	//Start the tour
+	void TourBus::startTheTour()const
 	{
-		/*if (validTour()) */
-		if (allBoarded()) //ie. must also be const 
+		if (allBoarded())
 		{
 			cout << "Starting the tour...." << endl;
 			cout << "Passenger List:" << endl;
@@ -85,6 +99,7 @@ namespace sdds
 		}
 	}
 
+	//Board passengers
 	TourBus& TourBus::board()
 	{
 		char name[MAX_NAME_LEN + 1];

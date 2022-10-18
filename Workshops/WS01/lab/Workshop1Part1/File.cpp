@@ -17,18 +17,18 @@ using namespace std;
 
 namespace sdds
 {
-    const char* const SHOPPING_DATA_FILE = "shoppinglist.csv";
+    //const char* const SHOPPING_DATA_FILE = "shoppinglist.csv";
     FILE* sfptr = nullptr;
 
     bool openFileForRead()
     {
-        sfptr = fopen(SHOPPING_DATA_FILE, "r");
+        sfptr = fopen("shoppinglist.csv", "r");
         return sfptr != NULL;
     }
 
     bool openFileForOverwrite()
     {
-        sfptr = fopen(SHOPPING_DATA_FILE, "w");
+        sfptr = fopen("shoppinglist.csv", "w");
         return sfptr != NULL;
     }
 

@@ -27,6 +27,7 @@ int main()
     TourBus* t;
     bool done = false;
     int num;
+    int x = 0;
     cout << "Enter the following data:" << endl
         << "100<ENTER>" << endl
         << "10<ENTER>" << endl
@@ -43,9 +44,9 @@ int main()
         cout << "Please enter number of passengers: ";
         cin >> num;
         cin.ignore(1000, '\n');
+        TourBus(x);
         t = new TourBus(num); 
-        if (t->validTour()) //dereferenced so i can access the object
-        {
+        if (t->validTour())
             if (num == 4) 
             {
                 depart(t->board());
@@ -53,7 +54,7 @@ int main()
             }
             else
             {
-                depart(*t); //*t t[0] t[1] t[2] t[3]
+                depart(*t); 
             }
         }
         else
