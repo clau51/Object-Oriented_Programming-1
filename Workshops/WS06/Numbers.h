@@ -1,0 +1,27 @@
+#ifndef SDDS_NUMBERS_H_
+#define SDDS_NUMBERS_H_
+#include <iostream>
+namespace sdds {
+   class Numbers {
+       double* m_numbers{}; //holds the adress of the dynamic array of doubles holding the number collection
+       char* m_filename{}; //holds the name of the file associated with the class (if it is the original object and not a copy)
+      bool m_isOriginal; //true if this object is the original (and not a copy)
+      int m_numCount; //holds the number of values in the m_number dynamic array
+      bool isEmpty()const;
+      void setEmpty();
+      void deallocate();
+      void setFilename(const char* filename);
+   public:
+      Numbers();
+      Numbers(const char* filename);
+      Numbers(const Numbers& num);
+      double average()const;
+      double max()const;
+      double min()const;
+      ~Numbers();
+      Numbers& operator=(const char* cstring);
+
+   };
+}
+#endif // !SDDS_NUMBERS_H_
+
