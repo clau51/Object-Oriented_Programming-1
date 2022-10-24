@@ -20,8 +20,14 @@ namespace sdds {
       double min()const;
       ~Numbers();
       Numbers& operator=(const char* cstring);
-
+      bool load();
+      int numberCount()const;
+      std::ostream& display(std::ostream& ostr = std::cout)const;
+      Numbers& operator+=(double num);
+      void save();
    };
+      std::ostream& operator<<(std::ostream& os, const Numbers& N);
+      std::istream& operator>>(std::istream& istr, Numbers& N);
 }
 #endif // !SDDS_NUMBERS_H_
 
