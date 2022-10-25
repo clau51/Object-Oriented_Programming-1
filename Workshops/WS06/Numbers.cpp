@@ -82,7 +82,6 @@ namespace sdds
 				fileout.precision(2);
 				fileout << m_numbers[i] << endl;
 			}
-			//fileout.close();
 		}
 	}
 
@@ -110,8 +109,6 @@ namespace sdds
 		m_filename = new char[strlen(filename) + 1];
 		strcpy(m_filename, filename);
 	}
-
-
 
 	double Numbers::average() const
 	{
@@ -208,7 +205,7 @@ namespace sdds
 		int i, j;
 		double temp;
 
-		if (ascending == 1) {
+		if (ascending) {
 			for (i = m_numCount - 1; i > 0; i--)
 			{
 				for (j = 0; j < i; j++)
@@ -222,7 +219,7 @@ namespace sdds
 				}
 			}
 		}
-		else if (ascending == 0) {
+		else if (!ascending) {
 			for (i = m_numCount - 1; i > 0; i--)
 			{
 				for (j = 0; j < i; j++)
