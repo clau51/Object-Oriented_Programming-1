@@ -15,6 +15,7 @@ namespace sdds {
       Numbers();
       Numbers(const char* filename);
       Numbers(const Numbers& num);
+      Numbers& operator=(Numbers& obj);
       double average()const;
       double max()const;
       double min()const;
@@ -22,6 +23,9 @@ namespace sdds {
       Numbers& operator=(const char* cstring);
       bool load();
       int numberCount()const;
+      Numbers& sort(bool ascending);
+      Numbers operator-()const;
+      Numbers operator+()const;
       std::ostream& display(std::ostream& ostr = std::cout)const;
       Numbers& operator+=(double num);
       void save();

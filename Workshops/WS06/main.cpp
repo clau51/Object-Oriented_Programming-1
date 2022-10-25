@@ -57,49 +57,49 @@ void test1() {
    displayList(N);
    endTest(1);
 }
-//void test2() {
-//   startTest(2);
-//   Numbers N("numbers.txt");
-//   Numbers M(N);
-//   Numbers L;
-//   Numbers BAD("BadFileName.txt");
-//   cout << N << endl << M << endl << L << endl << BAD <<endl;
-//   cout << "Ascending:" << endl << +N << endl << "Descending:" << endl << -N << endl;
-//   M += 1000;
-//   L = M;
-//   N = L;
-//   cout << N << endl << M << endl << L << endl;
-//   cout << "Ascending:" << endl;
-//   cout << +N << endl << +M << endl << +L << endl;
-//   cout << "Descending: "<< endl;
-//   cout << -N << endl << -M << endl << -L << endl;
-//   endTest(2);
-//}
-//void test3() {
-//   startTest(3);
-//   cout << endl << "In this test we use your insertion and extraction operators to do" << endl
-//      << "File IO. This makes sure your implementation is done correctly" << endl 
-//      << "using the reference of istream and ostream and NOT cin and cout" << endl << endl;
-//   ifstream addnum("add.txt");
-//   ofstream output("output.txt");
-//   Numbers N("numbers.txt");
-//   addnum >> N;
-//   addnum >> N;
-//   addnum >> N;
-//   output << N << endl << +N << endl << -N << endl;
-//   endTest(3);
-//}
+void test2() {
+   startTest(2);
+   Numbers N("numbers.txt");
+   Numbers M(N);
+   Numbers L;
+   Numbers BAD("BadFileName.txt");
+   cout << N << endl << M << endl << L << endl << BAD <<endl;
+   cout << "Ascending:" << endl << +N << endl << "Descending:" << endl << -N << endl;
+   M += 1000;
+   L = M;
+   N = L;
+   cout << N << endl << M << endl << L << endl;
+   cout << "Ascending:" << endl;
+   cout << +N << endl << +M << endl << +L << endl;
+   cout << "Descending: "<< endl;
+   cout << -N << endl << -M << endl << -L << endl;
+   endTest(2);
+}
+void test3() {
+   startTest(3);
+   cout << endl << "In this test we use your insertion and extraction operators to do" << endl
+      << "File IO. This makes sure your implementation is done correctly" << endl 
+      << "using the reference of istream and ostream and NOT cin and cout" << endl << endl;
+   ifstream addnum("add.txt");
+   ofstream output("output.txt");
+   Numbers N("numbers.txt");
+   addnum >> N;
+   addnum >> N;
+   addnum >> N;
+   output << N << endl << +N << endl << -N << endl;
+   endTest(3);
+}
 int main() {
 	//Numbers N = "hello.txt";
 	//N = "bello.txt";
    resetFile("numbers.txt");
    test1();
-   //displayFile("numbers.txt");
-   //test2();
-   //displayFile("numbers.txt");
-   //test3();
-   //displayFile("numbers.txt");
-   //displayFile("add.txt");
-   //displayFile("output.txt");
+   displayFile("numbers.txt");
+   test2();
+   displayFile("numbers.txt");
+   test3();
+   displayFile("numbers.txt");
+   displayFile("add.txt");
+   displayFile("output.txt");
    return 0;
 }
