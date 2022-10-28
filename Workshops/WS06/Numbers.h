@@ -15,7 +15,7 @@ namespace sdds {
       Numbers();
       Numbers(const char* filename);
       Numbers(const Numbers& num);
-      Numbers& operator=(Numbers& obj);
+      Numbers& operator=(const Numbers& obj);
       double average()const;
       double max()const;
       double min()const;
