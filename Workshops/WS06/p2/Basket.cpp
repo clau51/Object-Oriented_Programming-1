@@ -1,81 +1,132 @@
+//Name: Carmen Lau
+//Student ID: 166689216
+//Email: clau51@myseneca.ca
+//Date: October 29, 2022
+//Section: NBB
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
 #define _CRT_SECURE_NO_WARNINGS
-#include "Basket.h"
 #include <iostream>
+#include <cstring>
+#include "Basket.h"
 
 using namespace std;
 namespace sdds
 {
-   bool Fruit::isValid()const
-   {
-      return (m_name != nullptr) && (m_qty > 0) && (m_name[0] != '\0');
-   }
-
+   //Default constructor: set object of type Fruit to safe empty state
    Fruit::Fruit()
    {
-      m_name[0] = '\0';
+      m_name[0] = '\0'; 
       m_qty = 0;
    }
 
+   //Sets name and quantity of fruit
+
+   Fruit& Fruit::set(const char* name, double qty)
+   {
+      strcpy(m_name, name);
+      m_qty = qty;
+
+      return *this;
+   }
+
+   //Two argument constructor: set object to values in parameters
    Fruit::Fruit(const char* name, double qty) //Fruit("apple", 2.4);
    {
-      //if (name && qty > 0)
-      if (isValid())
+      if (name && name[0] && qty > 0)
       {
-         strcpy(m_name, name);
-         m_qty = qty;
+         if (strlen(name) >= 0 && strlen(name) <= 30)
+         {
+            set(name, qty);
+         }
       }
    }
 
-   Fruit& Fruit::operator=(const Fruit& fruit2) //Fruit = Fruit
+
+   //Copy assignment operator: copy object of type Fruit from right side into left side
+   Fruit& Fruit::operator=(const Fruit& fruit2)
    {
-      if (fruit2.isValid())
+      if (fruit2) //No need to check if this != & fruit2 because there is no dynamic memory in struct Fruit
       {
-         strcpy(m_name, fruit2.m_name);
-         m_qty = fruit2.m_qty;
+         set(fruit2.m_name, fruit2.m_qty);
       }
 
       return *this;
    }
 
-   Basket::Basket()
+   //Operator bool: return true if object passes validation
+   Fruit::operator bool() const
    {
-      setEmpty();
+      return (m_qty > 0) && (m_name[0] != '\0');
    }
 
-   Basket::Basket(Fruit* obj, int size, double price) //ok
-   { //arr of fruits (ie. obj[1], obj[2], ob[3])
+   //Get name of fruit
+   const char* Fruit::getName() const
+   {
+      return m_name;
+   }
+
+   //Get weight of fruit
+   double Fruit::getQty() const
+   {
+      return m_qty;
+   }
+
+   //Default constructor: set object of type Basket to safe empty state
+   Basket::Basket()
+   {
+      setEmpty(); 
+   }
+
+   //Three argument constructor: set object to values in parameters
+   Basket::Basket(Fruit* fruit, int size, double price) //ok
+   {
       setEmpty();
-      if (obj && size > 0 && price > 0)
+      if (fruit && size > 0 && price > 0)
       {
-         m_fruits = new Fruit[size]; //m_fruits[10];
+         m_fruits = new Fruit[size];
          for (int i = 0; i < size; i++)
          {
-            //Fruit = Fruit;
-            m_fruits[i] = obj[i];
+            m_fruits[i] = fruit[i];
          }
          m_numFruits = size;
          m_price = price;
       }
    }
 
-   //Basket C;
-   //Basket L("apple", 2.3);
-   //Basket C = L;
+   //Copy constructor: copy object of type Basket from right side into left side
    Basket::Basket(const Basket& basket2)
    {
       setEmpty();
       *this = basket2;
    }
 
-   //Basket X("apple", 2.2);
-   //Basket C("orange", 4.4);
-   //X = C;
+
+   //Deallocate memory and set to safe empty state
+   Basket& Basket::deallocate()
+   {
+      delete[] m_fruits;
+      m_fruits = nullptr;
+
+      return *this;
+   }
+
+   //Set object of type Basket to safe empty state
+   Basket& Basket::setEmpty()
+   {
+      m_fruits = nullptr;
+      m_numFruits = 0;
+      m_price = 0;
+
+      return *this;
+   }
+
+   //Copy assignment operator: copy object of type Basket from right side into left side
    Basket& sdds::Basket::operator=(const Basket& basket2)
    {
       if (this != &basket2)
       {
-         delete[] m_fruits;
-         m_fruits = nullptr;
+         deallocate();
 
          if (basket2)
          {
@@ -92,21 +143,13 @@ namespace sdds
       return *this;
    }
 
-   Basket& Basket::setEmpty()
-   {
-      m_fruits = nullptr;
-      m_numFruits = 0;
-      m_price = 0;
-
-      return *this;
-   }
-
-
+   //Deallocate memory for object of type Basket
    Basket::~Basket()
    {
       delete[] m_fruits;
    }
 
+   //Set price of basket
    void Basket::setPrice(double price)
    {
       if (price > 0)
@@ -115,50 +158,35 @@ namespace sdds
       }
    }
 
+   //Check if object of type Basket is not empty
    Basket::operator bool() const
    {
       return m_fruits != nullptr;
    }
 
-   //Basket aBasket;
-   //aBasket += fruits[2];
-   //(aBasket += fruits[0]) += fruits[4];
-   //aBasket.setPrice(12.234);
+   //Add a fruit to basket
    Basket& Basket::operator+=(Fruit fruit)
    {
-      Fruit* temp = new Fruit[m_numFruits + 1];
-      for (int i = 0; i < m_numFruits; i++)
+      if (fruit)
       {
-         temp[i] = m_fruits[i];
+         Fruit* temp = new Fruit[m_numFruits + 1];
+         for (int i = 0; i < m_numFruits; i++)
+         {
+            temp[i] = m_fruits[i];
+         }
+         temp[m_numFruits] = fruit;
+         m_numFruits++;
+
+         deallocate();
+
+         m_fruits = temp;
       }
-      temp[m_numFruits] = fruit; //Fruit = Fruit
-
-      delete[] m_fruits;
-      m_fruits = nullptr;
-
-      m_fruits = temp; //Fruit = Fruit
-      m_numFruits++;
 
       return *this;
    }
 
-   //*****DELETE*****
-   ostream& operator<<(ostream& ostr, Fruit& fruit) 
-   {
-      //*****DELETE*****
-      if (fruit.isValid())
-      {
-         ostr << fruit.getName() << endl;
-      }
-      else
-      {
-         ostr << "Invalid" << endl;
-      }
-         return ostr;
-      
-   }
-
-   ostream& operator<<(ostream& ostr, Basket& basket)
+   //Display basket
+   ostream& operator<<(ostream& ostr, const Basket& basket)
    {
       if (basket)
       {

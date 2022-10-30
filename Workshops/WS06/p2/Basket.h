@@ -1,50 +1,83 @@
+//Name: Carmen Lau
+//Student ID: 166689216
+//Email: clau51@myseneca.ca
+//Date: October 29, 2022
+//Section: NBB
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
 #ifndef SDDS_BASKET_H_
 #define SDDS_BASKET_H_
 #include <iostream>
+
 namespace sdds
 {
-   class Fruit
+   struct Fruit
    {
+   private:
       char m_name[30 + 1]{};
       double m_qty{};
    public:
-      bool isValid()const;
+      //Default constructor: set object of type Fruit to safe empty state
       Fruit();
+
+      //Sets name and quantity of fruit
+      Fruit& set(const char* name, double qty);
+      
+      //Two argument constructor: set object to values in parameters
       Fruit(const char* name, double qty);
+
+      //Copy assignment operator: copy object of type Fruit from right side into left side
       Fruit& operator=(const Fruit& fruit2);
-      const char* getName()const
-      {
-         return m_name;
-      }
-      double getQty()const
-      {
-         return m_qty;
-      }
+
+      //Operator bool: return true if object passes validation
+      operator bool() const;
+
+      //Get name of fruit
+      const char* getName()const;
+
+      //Get weight of fruit
+      double getQty()const;
    };
-   std::ostream& operator<<(std::ostream& ostr, Fruit& fruit); //*****DELETE*****
 
-
-   //Fruits[10];
-         //Fruit[0].m_name = "Carmen"
-         //Fruit[0].m_qty = 2.4
-         //Fruit[1].m_name = "Kingsley"
-         //Fruit[1].m_qty = 4.4
    class Basket
    { 
       Fruit* m_fruits{};
       int m_numFruits{};
       double m_price{};
    public:
+
+      //Default constructor: set object of type Basket to safe empty state
       Basket();
-      Basket(Fruit* obj, int size, double price);
+
+      //Three argument constructor: set object to values in parameters
+      Basket(Fruit* fruit, int size, double price);
+
+      //Copy constructor: copy object of type Basket from right side into left side
       Basket(const Basket& basket2);
+
+      //Deallocate memory and set to safe empty state
+      Basket& deallocate();
+
+      //Set object of type Basket to safe empty state
       Basket& setEmpty();
+
+      //Copy assignment operator: copy object of type Basket from right side into left side
       Basket& operator=(const Basket& basket2);
+      
+      //Deallocate memory for object of type Basket
       ~Basket();
+
+      //Set price of basket
       void setPrice(double price);
+
+      //Check if object of type Basket is not empty
       operator bool()const;
+
+      //Add a fruit to basket
       Basket& operator+=(Fruit fruit);
-      friend std::ostream& operator<<(std::ostream&, Basket& basket);
+      
+      //Display basket
+      friend std::ostream& operator<<(std::ostream&, const Basket& basket);
    };
 
 }
