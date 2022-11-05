@@ -5,28 +5,49 @@ namespace sdds
 {
    const int MAX_NO_OF_ITEMS = 10;
    const int MAX_CHARS = 50;
+   class Menu;
+   
    class MenuItem
    {
       char m_cString[MAX_CHARS + 1];
-      MenuItem();
-      MenuItem(const char* cstr);
-      std::ostream& display(std::ostream& ostr)const;
-      operator bool();
+      
+      MenuItem(const char* cstr = nullptr);
+      MenuItem& setEmpty();
+      std::ostream& display(std::ostream& ostr = std::cout)const;
+      operator bool()const;
       MenuItem& operator=(const MenuItem& menuItem) = delete;
+      MenuItem(const MenuItem& menuItem) = delete;
       friend class Menu;
    };
-
    class Menu
    {
-      MenuItem menuItem[MAX_NO_OF_ITEMS];
+      char m_title[MAX_CHARS + 1];
+      MenuItem m_menuItems[MAX_NO_OF_ITEMS];
       int m_noOfItems;
       int m_indent;
-      char m_title[MAX_CHARS + 1];
 
+   public:
       Menu(const char* str, int indent = 0);
+      Menu& setEmpty();
       Menu& operator=(const Menu& menu) = delete;
+      Menu(const Menu& menu) = delete;
+      operator bool() const;
+      bool isEmpty() const;
+      std::ostream& display(std::ostream& ostr = std::cout) const;
+      Menu& operator=(const char* str);
+      void add(const char* str);
+      Menu& operator<<(const char* str);
+      int run()const;
+      void clear();
+      operator int() const;
+  /*    void display(int indent)
+      {
+         cout <<  << 
+      }*/
+      
 
    };
+
 }
 
 #endif
