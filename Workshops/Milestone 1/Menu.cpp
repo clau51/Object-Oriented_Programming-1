@@ -86,39 +86,20 @@ namespace sdds
    {
       if (*this) //if title is valid
       {
-         //if (m_noOfItems)
-         //{// check if array is empty
-         //if (m_indent)
-         //{
-            ostr.width((m_indent * 4) + strlen(m_title));
-            //ostr << " ";
-            ostr << m_title << endl;
-            for (int i = 0; i < m_noOfItems; i++)
-            {
-               ostr.width((m_indent * 4) + 1);
-               //ostr << " ";
-               ostr << i + 1 << "- " << m_menuItems[i].m_cString << endl;
-            }
-            if (m_noOfItems)
-            {
-               ostr.width((m_indent * 4) + 2);
-               ostr << "> ";
-            }
-         //}
-         //else
-         //{
-         //   ostr << m_title << endl;
-         //   for (int i = 0; i < m_noOfItems; i++)
-         //   {
-         //      ostr << i + 1 << "- " << m_menuItems[i].m_cString << endl;
-         //   }
-         //   if (m_noOfItems)
-         //   {
-         //      ostr << "> ";
-         //   }
-         //}
-         //}
-         if (!m_noOfItems)
+         ostr.width((m_indent * 4) + strlen(m_title));
+         ostr << m_title << endl;
+         for (int i = 0; i < m_noOfItems; i++)
+         {
+            ostr.width((m_indent * 4) + 1);
+            ostr << i + 1 << "- " << m_menuItems[i].m_cString << endl;
+         }
+
+         if (m_noOfItems)
+         {
+            ostr.width((m_indent * 4) + 2);
+            ostr << "> ";
+         }
+         else
          {
             ostr << "No Items to display!" << endl;
 
@@ -128,15 +109,6 @@ namespace sdds
       {
          ostr << "Invalid Menu!" << endl;
       }
-
-      //if (!*this)
-      //{
-      //   ostr << "No Items to display!" << endl;
-      //}
-      //else if (m_menuItems[0].m_cString[0] == '\0')
-      //{
-      //   ostr << "No Items to display!" << endl;
-      //}
 
       return ostr;
    }
