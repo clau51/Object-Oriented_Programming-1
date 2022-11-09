@@ -17,7 +17,6 @@
 #define SDDS_UTILS_H__
 namespace sdds
 {
-
    int strlen(const char* str);
    void strcpy(char* des, const char* src, int len);
    int strcmp(const char* s1, const char* s2);
