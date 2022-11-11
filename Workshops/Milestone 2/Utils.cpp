@@ -120,6 +120,16 @@ namespace sdds
       return userInput;
    }
 
+   std::ostream& printChar(char character, int num, std::ostream& ostr)
+   {
+      for (int i = 0; i < num; i++)
+      {
+         ostr << character;
+      }
+
+      return ostr;
+   }
+
 
 
 

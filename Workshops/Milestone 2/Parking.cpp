@@ -84,26 +84,19 @@ namespace sdds
 
    void Parking::parkVehicle()
    {
-      //m_vehicleMenu.display();
-      int selection = m_vehicleMenu.run();
+      int selection = m_vehicleMenu.run();   
       
       if (selection == 1)
       {
-         printDivider('-', 33) << endl;
-         cout << "Parking Car" << endl;
-         printDivider('-', 33) << endl << endl;
-      } 
+         printMessage("Parking", 1, m_vehicleMenu.getMenuItem(selection - 1)) << endl;
+      }
       else if (selection == 2)
       {
-         printDivider('-', 33) << endl;
-         cout << "Parking Motorcycle" << endl;
-         printDivider('-', 33) << endl << endl;
+         printMessage("Parking", 1, m_vehicleMenu.getMenuItem(selection - 1)) << endl;
       }
       else
       {
-         printDivider('-', 33) << endl;
-         cout << "Cancelled parking" << endl;
-         printDivider('-', 33) << endl << endl;
+         printMessage("Cancelled parking") << endl;
       }
    }
    
@@ -158,7 +151,7 @@ namespace sdds
    {
       if (*this)
       {
-         printMessage("loading data from", m_filename) << endl;
+         printMessage("loading data from", 1, m_filename) << endl;
       }
 
       return bool(*this);
@@ -168,7 +161,7 @@ namespace sdds
    {
       if (*this)
       {
-         printMessage("Saving data into", m_filename) << endl;
+         printMessage("Saving data into", 1, m_filename) << endl;
       }
    }
 
@@ -186,12 +179,6 @@ namespace sdds
       return !isEmpty();
    }
 
-   //std::ostream& printVehicle(std::ostream& ostr = std::cout)
-   //{
-   //   printDivider('-', 33, ostr);
-   //   ostr << "Parking " << m_vehicleMenu.
-   //}
-
    std::ostream& printPrompt(const char* message, std::ostream& ostr)
    {
       ostr << message << endl;
@@ -200,31 +187,15 @@ namespace sdds
       return ostr;
    }
 
-   std::ostream& printMessage(const char* message, ostream& ostr)
+   ostream& printMessage(const char* message, int space, const char* cstring, ostream& ostr)
    {
-      printDivider('-', 33, ostr) << endl;
-      ostr << message << endl;
-      printDivider('-', 33) << endl;
+      printChar('-', 33, ostr) << endl;
+      ostr << message;
+      printChar(' ', space) << cstring << endl;
+      printChar('-', 33) << endl;
 
       return ostr;
    }
 
-   ostream& printMessage(const char* message, const char* file, ostream& ostr)
-   {
-      printDivider('-', 33, ostr) << endl;
-      ostr << message << " " << file << endl;
-      printDivider('-', 33) << endl;
 
-      return ostr;
-   }
-
-   ostream& printDivider(char character, int num, ostream& ostr)
-   {
-      for (int i = 0; i < num; i++)
-      {
-         ostr << character;
-      }
-
-      return ostr;
-   }
 }

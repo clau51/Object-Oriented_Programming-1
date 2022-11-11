@@ -15,6 +15,7 @@
 
 #ifndef SDDS_UTILS_H__
 #define SDDS_UTILS_H__
+#include <iostream>
 
 namespace sdds
 {
@@ -24,6 +25,8 @@ namespace sdds
    int getInt();
    int getIntRange(int min, int max);
    char getYesNo(const char* validChars);
+   std::ostream& printChar(char character, int num, std::ostream& ostr = std::cout);
+
 
 }
 #endif // !

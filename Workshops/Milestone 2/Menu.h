@@ -99,8 +99,9 @@ namespace sdds
       operator int() const;
 
       //Print indentation
-      std::ostream& indent(std::ostream& ostr = std::cout)const;
+      //std::ostream& indent(std::ostream& ostr = std::cout)const;
 
+      const char* getMenuItem(int index) const;
 
    };
 

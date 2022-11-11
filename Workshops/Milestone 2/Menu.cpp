@@ -70,7 +70,7 @@ namespace sdds
    //* MENU FUNCTIONS
    //*
    //***********************************************************************//
-   
+
    //Two Argument Constructor - sets Menu object (receives title and identation)
    Menu::Menu(const char* str, int indent)
    {
@@ -125,15 +125,15 @@ namespace sdds
    {
       if (*this) //if title is valid
       {
-         indent() << m_title << endl;
+         printChar(' ', m_indent * 4) << m_title << endl;
          for (int i = 0; i < m_noOfItems; i++)
          {
-            indent() << i + 1 << "- " << m_menuItems[i].m_cString << endl;
+            printChar(' ', m_indent * 4) << i + 1 << "- " << m_menuItems[i].m_cString << endl;
          }
 
          if (m_noOfItems) //m_menuItems[0]
          {
-            indent() << "> ";
+            printChar(' ', m_indent * 4) << "> ";
          }
          else
          {
@@ -226,13 +226,20 @@ namespace sdds
       return run();
    }
 
-   //Print indentation
-   ostream& Menu::indent(ostream& ostr) const
+   const char* Menu::getMenuItem(int index) const
    {
-      for (int i = 0; i < m_indent * 4; i++)
-      {
-         ostr << ' ';
-      }
-      return ostr;
+      return m_menuItems[index].m_cString;
    }
+
+
+
+   ////Print indentation
+   //ostream& Menu::indent(ostream& ostr) const
+   //{
+   //   for (int i = 0; i < m_indent * 4; i++)
+   //   {
+   //      ostr << ' ';
+   //   }
+   //   return ostr;
+   //}
 }
