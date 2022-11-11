@@ -1,69 +1,47 @@
-/*
-Name:
-Email:
-Student ID:
-Data:
-Section:
-*/
-#define _CRT_SECURE_NO_WARNINGS
+//Name: Carmen Lau
+//Student ID: 166689216
+//Email: clau51@myseneca.ca
+//Date: November 11, 2022
+//Section: NBB
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
 #include <iostream>
 #include <iomanip>
 #include <cstring>
 #include "VehicleBasic.h"
+#include "Utils.h"
 
 using namespace std;
 
 namespace sdds
 {
-
+   const int MIN_VEHICLE_YEAR = 1886;
+   const int MAX_VEHICLE_YEAR = 2023;
+   
+   //Three argument constructor: Sets object (assume all data valid)
    VehicleBasic::VehicleBasic(const char* licensePlate, int year, const char* address)
    {
-      strcpy(m_licensePlate, licensePlate);
-      strcpy(m_address, address);
+      sdds::strcpy(m_licensePlate, licensePlate, 9);
+      sdds::strcpy(m_address, address, 64);
       m_year = year;
    }
 
-
+   //Moves vehicle to new address and prints to screen
    void VehicleBasic::NewAddress(const char* address)
    {
       if (strcmp(m_address, address))
       {
-         cout << "|";
-         cout.width(8);
-         cout.setf(ios::right);
-         cout << m_licensePlate;
-         cout.unsetf(ios::right);
-         cout << "| ";
-         cout << "|";
-         cout.width(20);
-         cout.setf(ios::right);
-         cout << m_address;
-         cout.unsetf(ios::right);
-         cout << " ---> ";
-         cout.width(20);
-         cout.setf(ios::left);
-         cout << address;
-         cout.unsetf(ios::left);
-         cout << "|" << endl;
+         cout << "|" << setw(8) << m_licensePlate 
+            << "| |" << setw(20) << m_address 
+            << " ---> " << setw(20) << left << address << right 
+            << "|" << endl;
 
-         strcpy(m_address, address);
+
+         sdds::strcpy(m_address, address, 64);
       }
    }
 
-   VehicleBasic& VehicleBasic::set(const char* address)
-   {
-      if (address && address[0])
-      {
-         strcpy(m_address, address);
-      }
-      else
-      {
-         m_address[0] = '\0';
-      }
-
-      return *this;
-   }
-
+   //Display year, plate, address of the vehicle
    ostream& VehicleBasic::write(ostream& os)const
    {
       os << "| " << m_year << " | " << m_licensePlate << " | " << m_address;
@@ -71,58 +49,44 @@ namespace sdds
       return os;
    }
 
+   //Read year, plate, address of the vehicle
    istream& VehicleBasic::read(istream& in)
    {
-      char newline;
-      bool ok;
-
-      do
+      cout << "Built year: ";
+      m_year = getIntRange(MIN_VEHICLE_YEAR, MAX_VEHICLE_YEAR, in);
+      cout << "License plate: ";
+      in.getline(m_licensePlate, 10, '\n');
+      if (!in)
       {
-         ok = true;
-         cout << "Built year: ";
-         in >> m_year;
-         newline = in.get();
-         if (in && newline == '\n')
-         {
-            cout << "License plate: ";
-            in >> m_licensePlate;
-            cout << "Current location: ";
-            in >> m_address;
-         }
-         else
-         {
-            cout << "Invalid year..." << endl;
-            ok = false;
-            cin.clear();
-            cin.ignore(1000, '\n');
-         }
-      } while (!ok);
+         in.clear();
+         in.ignore(1000, '\n');
+      }
+      cout << "Current location: ";
+      in.getline(m_address, 65, '\n');
+      if (!in)
+      {
+         in.clear();
+         in.ignore(1000, '\n');
+      }
 
       return in;
    }
 
+   //Helper operator overload function: display year, plate, address of the vehicle
    std::ostream& operator<<(std::ostream& ostr, const VehicleBasic& vehicle)
    {
       return vehicle.write(ostr);
    }
 
+   //Helper operator overload function: read year, plate, address of the vehicle
    std::istream& operator>>(std::istream& istr, VehicleBasic& vehicle)
    {
       return vehicle.read(istr);
    }
-
 }
 
-//VehicleBasic& vehicle = aDumper //Base& rBase = derived Derived& derived = base
-//vehicle.read(istr) //vehicle.read calls Dumper::read() because read is virtual
+//VehicleBasic& vehicle = aDumper //ie. Base& rBase = derived Derived& derived = base
+//vehicle.read(istr) //vehicle.read calls Dumper::read() because read() is virtual
 
-//Parent can reference a child
-//Child can't reference a parent
-
-//int& a = b
-//a = 10;
-//b will also become 10
-
-//Base& rBase = derived;
-//rBase = getNum();
-//derived will also become getNum
+//Parent can have reference a child
+//Child can't have reference a parent

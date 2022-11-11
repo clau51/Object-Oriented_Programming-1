@@ -21,10 +21,12 @@
   <ItemGroup>
     <ClCompile Include="Dumper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VehicleBasic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dumper.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="VehicleBasic.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
