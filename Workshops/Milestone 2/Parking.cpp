@@ -76,14 +76,15 @@ namespace sdds
    void Parking::parkVehicle()
    {
       //m_vehicleMenu.display();
+      int selection = m_vehicleMenu.run();
       
-      if (m_vehicleMenu.run() == 1)
+      if (selection == 1)
       {
          printDivider('-', 33) << endl;
          cout << "Parking Car" << endl;
          printDivider('-', 33) << endl;
       } 
-      else if (m_vehicleMenu.run() == 2)
+      else if (selection == 2)
       {
          printDivider('-', 33) << endl;
          cout << "Parking Motorcycle" << endl;
@@ -99,23 +100,17 @@ namespace sdds
    
    void Parking::returnVehicle()
    {
-      cout << "---------------------------------" << endl;
-      cout << "Returning Vehicle" << endl;
-      cout << "---------------------------------" << endl;
+      printMessage("Returning Vehicle");
    }
    
    void Parking::listVehicle()
    {
-      cout << "---------------------------------" << endl;
-      cout << "Listing Parked Vehicles" << endl;
-      cout << "---------------------------------" << endl;
+      printMessage("Listing Parked Vehicles");
    }
    
    void Parking::findVehicle()
    {
-      cout << "---------------------------------" << endl;
-      cout << "Finding Vehicle" << endl;
-      cout << "---------------------------------" << endl;
+      printMessage("Finding Vehicle");
    }
    
    bool Parking::closeParking()
@@ -179,4 +174,9 @@ namespace sdds
       return !isEmpty();
    }
 
+   //std::ostream& printVehicle(std::ostream& ostr = std::cout)
+   //{
+   //   printDivider('-', 33, ostr);
+   //   ostr << "Parking " << m_vehicleMenu.
+   //}
 }

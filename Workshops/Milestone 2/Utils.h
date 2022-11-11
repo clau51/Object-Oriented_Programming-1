@@ -25,6 +25,7 @@ namespace sdds
    int getInt();
    int getIntRange(int min, int max);
    char getCharSelection(const char* validChars);
+   std::ostream& printMessage(const char* banner, std::ostream& ostr = std::cout);
    std::ostream& printDivider(char character, int num, std::ostream& ostr = std::cout);
 
 }

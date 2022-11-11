@@ -1,5 +1,6 @@
 #ifndef SDDS_PARKING_H_
 #define SDDS_PARKING_H_
+#include <iostream>
 #include "Menu.h"
 
 namespace sdds
@@ -9,7 +10,6 @@ namespace sdds
       char* m_filename;
       Menu m_mainMenu{"Parking Menu, select an action", 0};
       Menu m_vehicleMenu{"Select type of the vehicle:", 1};
-
 
       bool isEmpty();
       void parkingStatus();
@@ -32,6 +32,8 @@ namespace sdds
       int run();
 
    };
+
+   //std::ostream& printVehicle(std::ostream& ostr = std::cout);
 }
 
 #endif
