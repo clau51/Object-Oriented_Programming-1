@@ -9,7 +9,7 @@
 // Revision History
 // -----------------------------------------------------------
 // Name            Date            Reason
-//
+// Carmen Lau      November 8, 2022 Added getInt, getIntPositive, getIntRange, printChar
 /////////////////////////////////////////////////////////////////
 ***********************************************************************/
 #include <iostream>
@@ -43,7 +43,51 @@ namespace sdds
       return s1[i] - s2[i];
    }
 
-   int getInt(int min, int max)
+   int getInt(istream& istr)
+   {
+      int userInput;
+      char newline;
+      bool ok;
+
+      do
+      {
+         ok = true;
+         cin >> userInput;
+         newline = cin.get();
+
+         if (newline != '\n')
+         {
+            cout << "Invalid Integer, try again: ";
+            cin.clear();
+            cin.ignore(1000, '\n');
+            ok = false;
+         }
+      } while (!ok);
+
+      return userInput;
+   }
+
+   int getIntPositive(istream& istr)
+   {
+      int userInput;
+      bool ok;
+
+      do
+      {
+         ok = true;
+         userInput = getInt(istr);
+         if (userInput < 0)
+         {
+            cout << "Please enter a positive value: ";
+            ok = false;
+         }
+      } while (!ok);
+
+      return userInput;
+   }
+
+
+   int getIntRange(int min, int max, istream& istr)
    {
       bool ok;
       int userInput = 0;
@@ -51,23 +95,12 @@ namespace sdds
       do
       {
          ok = true;
-         char newline;
-         cin >> userInput;
-         newline = cin.get();
+         userInput = getInt(istr);
 
-         if (cin && newline == '\n')
+         if (userInput < min || userInput > max)
          {
-            if (userInput < min || userInput > max)
-            {
-               cout << "Invalid selection, try again: ";
-               ok = false;
-            }
-         }
-         else
-         {
-            cout << "Invalid Integer, try again: ";
-            cin.clear();
-            cin.ignore(1000, '\n');
+            cout << "Invalid selection, try again: ";
+            //cout << "Please enter a number between " << min << " and " << max << ": ";
             ok = false;
          }
 
@@ -75,4 +108,16 @@ namespace sdds
 
       return userInput;
    }
+
+   //Display a character
+   std::ostream& printChar(char character, int num, std::ostream& ostr)
+   {
+      for (int i = 0; i < num; i++)
+      {
+         ostr << character;
+      }
+
+      return ostr;
+   }
+
 }

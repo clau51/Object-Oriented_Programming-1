@@ -119,15 +119,15 @@ namespace sdds
    {
       if (*this) //if title is valid
       {
-         indent() << m_title << endl;
+         printChar(' ', m_indent * 4, ostr) << m_title << endl;
          for (int i = 0; i < m_noOfItems; i++)
          {
-            indent() << i + 1 << "- " << m_menuItems[i].m_cString << endl;
+            printChar(' ', m_indent * 4, ostr) << i + 1 << "- " << m_menuItems[i].m_cString << endl;
          }
 
          if (m_noOfItems) //m_menuItems[0]
          {
-            indent() << "> ";
+            printChar(' ', m_indent * 4, ostr) << "> ";
          }
          else
          {
@@ -190,7 +190,6 @@ namespace sdds
    //Gets user input and return the inputted number
    int Menu::run()const
    {
-      bool ok;
       int selection = 0;
 
       display();
@@ -198,7 +197,7 @@ namespace sdds
       {
          if (m_noOfItems) // or if (m_menuItems[0]) //if list not empty
          {
-            selection = getInt(1, m_noOfItems);
+            selection = getIntRange(1, m_noOfItems);
          }
          else
          {
@@ -221,13 +220,4 @@ namespace sdds
       return run();
    }
 
-   //Print indentation
-   ostream& Menu::indent(ostream& ostr) const
-   {
-      for (int i = 0; i < m_indent * 4; i++)
-      {
-         ostr << ' ';
-      }
-      return ostr;
-   }
 }

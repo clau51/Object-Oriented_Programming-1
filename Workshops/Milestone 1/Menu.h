@@ -97,10 +97,6 @@ namespace sdds
       //Int cast operator: return value of run() function
       operator int() const;
 
-      //Print indentation
-      std::ostream& indent(std::ostream& ostr = std::cout)const;
-      
-
    };
 
 }
