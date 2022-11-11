@@ -16,6 +16,7 @@
 #include "Utils.h"
 
 using namespace std;
+
 namespace sdds
 {
    int strlen(const char* str)
@@ -43,7 +44,32 @@ namespace sdds
       return s1[i] - s2[i];
    }
 
-   int getInt(int min, int max)
+   int getInt()
+   {
+      int userInput;
+      char newline;
+      bool ok;
+
+      do
+      {
+         ok = true;
+         cin >> userInput;
+         newline = cin.get();
+
+         if (newline != '\n')
+         {
+            cout << "Invalid Integer, try again: ";
+            cin.clear();
+            cin.ignore(1000, '\n');
+            ok = false;
+         }
+      } while (!ok);
+
+      return userInput;
+   }
+
+
+   int getIntRange(int min, int max)
    {
       bool ok;
       int userInput = 0;
@@ -51,23 +77,11 @@ namespace sdds
       do
       {
          ok = true;
-         char newline;
-         cin >> userInput;
-         newline = cin.get();
+         userInput = getInt();
 
-         if (cin && newline == '\n')
+         if (userInput < min || userInput > max)
          {
-            if (userInput < min || userInput > max)
-            {
-               cout << "Invalid selection, try again: ";
-               ok = false;
-            }
-         }
-         else
-         {
-            cout << "Invalid Integer, try again: ";
-            cin.clear();
-            cin.ignore(1000, '\n');
+            cout << "Invalid selection: ";
             ok = false;
          }
 
@@ -75,4 +89,46 @@ namespace sdds
 
       return userInput;
    }
+
+
+   char getCharSelection(const char* validChars)
+   {
+      char userInput = 0;
+      bool ok;
+      int found = 0;
+      do
+      {
+         ok = true;
+         cin >> userInput;
+         for (int i = 0; i < sdds::strlen(validChars); i++)
+         {
+            if (userInput == validChars[i])
+            {
+               found++;
+            }
+         }
+
+         if (found == 0)
+         {
+            cout << "Invalid response, only (Y)es or (N)o are acceptable, retry: ";
+            cin.clear();
+            cin.ignore(1000, '\n');
+            ok = false;
+         }
+      } while (!ok);
+
+      return userInput;
+   }
+
+   ostream& printDivider(char character, int num, ostream& ostr)
+   {
+      for (int i = 0; i < num; i++)
+      {
+         ostr << character;
+      }
+
+      return ostr;
+   }
+
+
 }

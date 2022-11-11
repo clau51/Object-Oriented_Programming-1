@@ -7,6 +7,7 @@
 
 #ifndef SDDS_MENU_H_
 #define SDDS_MENU_H_
+#include <iostream>
 #include "Utils.h"
 
 namespace sdds
@@ -14,11 +15,11 @@ namespace sdds
    const int MAX_NO_OF_ITEMS = 10;
    const int MAX_CHARS = 50;
    class Menu;
-   
+
    class MenuItem
    {
       char m_cString[MAX_CHARS + 1];
-      
+
       //MenuItem One Argument Constructor - sets MenuItem object (receives string)
       MenuItem(const char* cstr = nullptr);
 
@@ -30,7 +31,7 @@ namespace sdds
 
       //Display MenuItem object if not empty
       std::ostream& display(std::ostream& ostr = std::cout)const;
-      
+
       //Check if MenuItem object is not an empty string
       operator bool()const;
 
@@ -56,7 +57,7 @@ namespace sdds
 
    public:
       //Two Argument Constructor - sets Menu object (receives title and identation)
-      Menu(const char* str, int indent = 0);
+      Menu(const char* str = nullptr, int indent = 0);
 
       //Empty destructor
       virtual ~Menu() = default;
@@ -78,7 +79,7 @@ namespace sdds
 
       //Display Menu object if title is valid
       std::ostream& display(std::ostream& ostr = std::cout) const;
-     
+
       //Set Menu object to a string (title)
       Menu& operator=(const char* str);
 
@@ -99,7 +100,7 @@ namespace sdds
 
       //Print indentation
       std::ostream& indent(std::ostream& ostr = std::cout)const;
-      
+
 
    };
 

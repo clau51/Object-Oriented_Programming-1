@@ -65,6 +65,12 @@ namespace sdds
       return *this;
    }
 
+   //*************************************************************************//
+   //*
+   //* MENU FUNCTIONS
+   //*
+   //***********************************************************************//
+   
    //Two Argument Constructor - sets Menu object (receives title and identation)
    Menu::Menu(const char* str, int indent)
    {
@@ -198,7 +204,7 @@ namespace sdds
       {
          if (m_noOfItems) // or if (m_menuItems[0]) //if list not empty
          {
-            selection = getInt(1, m_noOfItems);
+            selection = getIntRange(1, m_noOfItems);
          }
          else
          {

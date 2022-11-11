@@ -15,12 +15,17 @@
 
 #ifndef SDDS_UTILS_H__
 #define SDDS_UTILS_H__
+#include <iostream>
+
 namespace sdds
 {
    int strlen(const char* str);
    void strcpy(char* des, const char* src, int len);
    int strcmp(const char* s1, const char* s2);
-   int getInt(int min, int max);
+   int getInt();
+   int getIntRange(int min, int max);
+   char getCharSelection(const char* validChars);
+   std::ostream& printDivider(char character, int num, std::ostream& ostr = std::cout);
 
 }
 #endif // !
