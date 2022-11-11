@@ -91,7 +91,7 @@ namespace sdds
    }
 
 
-   char getCharSelection(const char* validChars)
+   char getYesNo(const char* validChars)
    {
       char userInput = 0;
       bool ok;
@@ -120,24 +120,7 @@ namespace sdds
       return userInput;
    }
 
-   std::ostream& printMessage(const char* message, ostream& ostr)
-   {
-      printDivider('-', 33, ostr) << endl;
-      ostr << message << endl;
-      printDivider('-', 33) << endl;
 
-      return ostr;
-   }
-
-   ostream& printDivider(char character, int num, ostream& ostr)
-   {
-      for (int i = 0; i < num; i++)
-      {
-         ostr << character;
-      }
-
-      return ostr;
-   }
 
 
 }

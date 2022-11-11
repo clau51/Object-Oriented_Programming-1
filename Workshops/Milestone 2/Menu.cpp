@@ -196,7 +196,6 @@ namespace sdds
    //Gets user input and return the inputted number
    int Menu::run()const
    {
-      bool ok;
       int selection = 0;
 
       display();

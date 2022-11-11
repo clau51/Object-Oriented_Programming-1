@@ -5,10 +5,10 @@
 
 namespace sdds
 {
-   class Parking : public Menu
+   class Parking
    {
       char* m_filename;
-      Menu m_mainMenu{"Parking Menu, select an action", 0};
+      Menu m_mainMenu{"Parking Menu, select an action:", 0};
       Menu m_vehicleMenu{"Select type of the vehicle:", 1};
 
       bool isEmpty();
@@ -32,6 +32,10 @@ namespace sdds
       int run();
 
    };
+   std::ostream& printPrompt(const char* message, std::ostream& ostr = std::cout);
+   std::ostream& printMessage(const char* message, std::ostream& ostr = std::cout);
+   std::ostream& printMessage(const char* message, const char* file, std::ostream& ostr = std::cout);
+   std::ostream& printDivider(char character, int num, std::ostream& ostr = std::cout);
 
    //std::ostream& printVehicle(std::ostream& ostr = std::cout);
 }
