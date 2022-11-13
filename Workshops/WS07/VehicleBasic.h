@@ -28,10 +28,10 @@ namespace sdds
       void NewAddress(const char* address);
 
       //Display year, plate, address of the vehicle
-      virtual std::ostream& write(std::ostream& os = std::cout) const;
+      /*virtual*/ std::ostream& write(std::ostream& os = std::cout) const;
       
       //Read year, plate, address of the vehicle
-      virtual std::istream& read(std::istream& in = std::cin);
+      /*virtual*/ std::istream& read(std::istream& in = std::cin);
    };
 
    //Helper operator overload function: display year, plate, address of the vehicle

@@ -230,16 +230,4 @@ namespace sdds
    {
       return m_menuItems[index].m_cString;
    }
-
-
-
-   ////Print indentation
-   //ostream& Menu::indent(ostream& ostr) const
-   //{
-   //   for (int i = 0; i < m_indent * 4; i++)
-   //   {
-   //      ostr << ' ';
-   //   }
-   //   return ostr;
-   //}
 }

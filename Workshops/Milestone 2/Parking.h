@@ -11,24 +11,24 @@ namespace sdds
       Menu m_mainMenu{"Parking Menu, select an action:", 0};
       Menu m_vehicleMenu{"Select type of the vehicle:", 1};
 
-      bool isEmpty();
-      void parkingStatus();
-      void parkVehicle();
-      void returnVehicle();
-      void listVehicle();
-      void findVehicle();
-      bool closeParking();
-      bool exitParking();
-      bool loadFile();
-      void saveFile();
+      bool isEmpty()const;
+      void parkingStatus()const;
+      void parkVehicle()const;
+      void returnVehicle()const;
+      void listVehicle()const;
+      void findVehicle()const;
+      bool closeParking()const;
+      bool exitParking()const;
+      bool loadFile()const;
+      void saveFile()const;
       Parking(const Parking& parking) = delete;
       Parking& operator=(const Parking& parking) = delete;
       Parking& setEmpty();
-      operator bool();
+      operator bool()const;
 
    public:
-      Parking(const char* filename);
       virtual ~Parking();
+      Parking(const char* filename);
       int run();
 
    };

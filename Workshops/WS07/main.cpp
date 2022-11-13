@@ -55,6 +55,7 @@ int main()
 		VehicleBasic aVehicle("abc-123", 2010);
 		cout << aVehicle << endl << endl;
 
+
 		aVehicle.NewAddress("Downtown Toronto");
 		aVehicle.NewAddress("Mississauga");
 		aVehicle.NewAddress("North York");
@@ -62,13 +63,16 @@ int main()
 		cout << endl << aVehicle << endl << endl;
 
 		printHeader("Vehicle 2: Read/Write");
-		cin >> aVehicle;
+		//cin >> aVehicle;
 		cout << endl << aVehicle << endl << endl;
 	
 		printHeader("Vehicle 3: Dumper");
 
 		Dumper aDumper("T-1111", 2015, 5432, "Toronto HQ");
 		cout << endl;
+		
+		VehicleBasic& rVehicle = aDumper;
+		rVehicle.write();
 
 		moveAndLoad(aDumper, "Toronto Deposit", 2345);
 
@@ -87,6 +91,8 @@ int main()
 		cin >> aDumper;
 		cout << endl << (VehicleBasic)aDumper;
 		cout << endl << aDumper << endl << endl;
+
+		
 	
 }
 

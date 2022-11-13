@@ -8,8 +8,8 @@
 // Estra Classes and functions needed in the project
 // Revision History
 // -----------------------------------------------------------
-// Name            Date            Reason
-//
+// Name            Date             Reason
+// Carmen Lau      November 8, 2022 Added getInt, getIntPositive, getIntRange, getDouble, getDblNonNeg, getDoubleRange, getYesNo, printChar
 /////////////////////////////////////////////////////////////////
 ***********************************************************************/
 #include <iostream>
@@ -44,7 +44,7 @@ namespace sdds
       return s1[i] - s2[i];
    }
 
-   int getInt()
+   int getInt(istream& istr)
    {
       int userInput;
       char newline;
@@ -53,14 +53,32 @@ namespace sdds
       do
       {
          ok = true;
-         cin >> userInput;
-         newline = cin.get();
+         istr >> userInput;
+         newline = istr.get();
+            if (newline != '\n')
+            {
+               cout << "Invalid Integer, try again: ";
+               istr.clear();
+               istr.ignore(1000, '\n');
+               ok = false;
+            }
+      } while (!ok);
 
-         if (newline != '\n')
+      return userInput;
+   }
+
+   int getIntPositive(istream& istr)
+   {
+      int userInput;
+      bool ok;
+
+      do
+      {
+         ok = true;
+         userInput = getInt(istr);
+         if (userInput < 0)
          {
-            cout << "Invalid Integer, try again: ";
-            cin.clear();
-            cin.ignore(1000, '\n');
+            cout << "Please enter a positive value: ";
             ok = false;
          }
       } while (!ok);
@@ -69,7 +87,7 @@ namespace sdds
    }
 
 
-   int getIntRange(int min, int max)
+   int getIntRange(int min, int max, istream& istr)
    {
       bool ok;
       int userInput = 0;
@@ -77,11 +95,12 @@ namespace sdds
       do
       {
          ok = true;
-         userInput = getInt();
+         userInput = getInt(istr);
 
          if (userInput < min || userInput > max)
          {
-            cout << "Invalid selection: ";
+            cout << "Invalid selection, try again: ";
+            //cout << "Please enter a number between " << min << " and " << max << ": ";
             ok = false;
          }
 
@@ -90,7 +109,7 @@ namespace sdds
       return userInput;
    }
 
-
+   //Get user input for a yes or no question
    char getYesNo(const char* validChars)
    {
       char userInput = 0;
@@ -107,7 +126,6 @@ namespace sdds
                found++;
             }
          }
-
          if (found == 0)
          {
             cout << "Invalid response, only (Y)es or (N)o are acceptable, retry: ";
@@ -116,10 +134,10 @@ namespace sdds
             ok = false;
          }
       } while (!ok);
-
       return userInput;
    }
 
+   //Display a character 'x' number of times
    std::ostream& printChar(char character, int num, std::ostream& ostr)
    {
       for (int i = 0; i < num; i++)
@@ -129,8 +147,6 @@ namespace sdds
 
       return ostr;
    }
-
-
 
 
 }

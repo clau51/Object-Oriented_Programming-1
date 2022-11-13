@@ -8,24 +8,25 @@ using namespace std;
 
 namespace sdds
 {
+   //One argument constructor: if valid, populate parking and vehicle menus
    Parking::Parking(const char* filename)
    {
       if (filename && filename[0])
       {
          m_filename = new char[strlen(filename) + 1];
          std::strcpy(m_filename, filename);
-         
+
          if (loadFile())
          {
-            m_mainMenu << "Park Vehicle" 
-               << "Return Vehicle" 
+            m_mainMenu << "Park Vehicle"
+               << "Return Vehicle"
                << "List Parked Vehicles"
-               << "Find Vehicle" 
-               << "Close Parking (End of day)" 
+               << "Find Vehicle"
+               << "Close Parking (End of day)"
                << "Exit Program";
 
-            m_vehicleMenu << "Car" 
-               << "Motorcycle" 
+            m_vehicleMenu << "Car"
+               << "Motorcycle"
                << "Cancel";
          }
       }
@@ -36,6 +37,7 @@ namespace sdds
       }
    }
 
+   //Run the Parking Application; display messages according to user input
    int Parking::run()
    {
       if (*this)
@@ -51,20 +53,15 @@ namespace sdds
             else if (selection == 2) returnVehicle();
             else if (selection == 3) listVehicle();
             else if (selection == 4) findVehicle();
-            else if (selection == 5 && closeParking())
-            {
-               ok = true;
-            }
-            else if (selection == 6 && exitParking())
-            {
-               ok = true;
-            }
+            else if (selection == 5 && closeParking()) ok = true;
+            else if (selection == 6 && exitParking()) ok = true;
          } while (!ok);
 
       }
       return isEmpty();
    }
 
+   //Destructor
    Parking::~Parking()
    {
       saveFile();
@@ -72,20 +69,23 @@ namespace sdds
       m_filename = nullptr;
    }
 
-   bool Parking::isEmpty()
+   //Check if Parking object is empty
+   bool Parking::isEmpty()const
    {
       return m_filename == nullptr;
    }
 
-   void Parking::parkingStatus()
+   //Display parking status
+   void Parking::parkingStatus()const
    {
       cout << "****** Valet Parking ******" << endl;
    }
 
-   void Parking::parkVehicle()
+   //Display vehicle depending on user input
+   void Parking::parkVehicle()const
    {
-      int selection = m_vehicleMenu.run();   
-      
+      int selection = m_vehicleMenu.run();
+
       if (selection == 1)
       {
          printMessage("Parking", 1, m_vehicleMenu.getMenuItem(selection - 1)) << endl;
@@ -99,23 +99,27 @@ namespace sdds
          printMessage("Cancelled parking") << endl;
       }
    }
-   
-   void Parking::returnVehicle()
+
+   //Display vehicle returned
+   void Parking::returnVehicle()const
    {
       printMessage("Returning Vehicle") << endl;
    }
-   
-   void Parking::listVehicle()
+
+   //Display list of parked vehicles
+   void Parking::listVehicle()const
    {
       printMessage("Listing Parked Vehicles") << endl;
    }
-   
-   void Parking::findVehicle()
+
+   //Display message "Finding a Vehicle"
+   void Parking::findVehicle()const
    {
       printMessage("Finding a Vehicle") << endl;
    }
-   
-   bool Parking::closeParking()
+
+   //Close parking depending on user input
+   bool Parking::closeParking()const
    {
       char selection;
       bool ok;
@@ -131,7 +135,8 @@ namespace sdds
       return ok;
    }
 
-   bool Parking::exitParking()
+   //Exit parking application
+   bool Parking::exitParking()const
    {
       char selection;
       bool ok;
@@ -147,17 +152,19 @@ namespace sdds
       return ok;
    }
 
-   bool Parking::loadFile()
+   //Display message where file is loading from
+   bool Parking::loadFile()const
    {
       if (*this)
       {
          printMessage("loading data from", 1, m_filename) << endl;
       }
 
-      return bool(*this);
+      return *this;
    }
 
-   void Parking::saveFile()
+   //Display message where file is saving to
+   void Parking::saveFile()const
    {
       if (*this)
       {
@@ -165,20 +172,21 @@ namespace sdds
       }
    }
 
+   //Set object to empty state
    Parking& Parking::setEmpty()
    {
       m_filename = nullptr;
-      //m_mainMenu = nullptr;
-      //m_vehicleMenu = nullptr;
-      
+
       return *this;
    }
 
-   Parking::operator bool()
+   //Check if object is valid
+   Parking::operator bool()const
    {
       return !isEmpty();
    }
 
+   //Display prompt
    std::ostream& printPrompt(const char* message, std::ostream& ostr)
    {
       ostr << message << endl;
@@ -187,6 +195,7 @@ namespace sdds
       return ostr;
    }
 
+   //Display a formatted message
    ostream& printMessage(const char* message, int space, const char* cstring, ostream& ostr)
    {
       printChar('-', 33, ostr) << endl;

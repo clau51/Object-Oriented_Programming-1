@@ -32,10 +32,10 @@ namespace sdds
       bool unloadCargo();
 
       //Display built year, license plate, current location, capacity, cargo
-      std::ostream& write(std::ostream& os = std::cout) const override;
+      std::ostream& write(std::ostream& os = std::cout) const ;
       
       //Read built year, license plate, current location, capacity, cargo
-      std::istream& read(std::istream& in = std::cin) override;
+      std::istream& read(std::istream& in = std::cin) ;
    };
 
    //These helpers are not needed as we have made our Base class read() & write() functions virtual
