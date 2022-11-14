@@ -101,7 +101,7 @@ namespace sdds
    {
       if (m_height > 0 && m_width > 0) //Is the rectangle considered to be in an empty state if the m_label (base class) is nullptr?
       {
-         ostr << "+"; //use ostr.fill
+         ostr << "+";
          printChar('-', m_width - 2, ostr);
          ostr << "+" << endl;
 
@@ -114,7 +114,7 @@ namespace sdds
             ostr << "|" << setw(m_width - 2) << " " << "|" << endl;
          }
 
-         ostr << "+"; //use ostr.fill
+         ostr << "+";
          printChar('-', m_width - 2, ostr);
          ostr << "+";
       }
