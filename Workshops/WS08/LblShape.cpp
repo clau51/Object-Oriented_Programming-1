@@ -8,10 +8,11 @@ namespace sdds
    {
       return m_label;
    }
-   LblShape::LblShape()
-   {
-      m_label = nullptr;
-   }
+   
+   //LblShape::LblShape()
+   //{
+   //   m_label = nullptr; //Don't need to do? m_label is already initialized to null
+   //}
 
    LblShape::LblShape(const char* cString)
    {
@@ -20,10 +21,10 @@ namespace sdds
          m_label = new char[strlen(cString) + 1];
          strcpy(m_label, cString);
       }
-      else
-      {
-         m_label = nullptr;
-      }
+      //else
+      //{
+      //   m_label = nullptr; //Already initialized to null (in the class)
+      //}
    }
    
    LblShape::~LblShape()
@@ -37,7 +38,7 @@ namespace sdds
       char label[50 + 1];
       istr.getline(label, 51, ',');
 
-      delete[] m_label;
+      delete[] m_label;      
       m_label = new char[strlen(label) + 1];
       strcpy(m_label, label);
    }

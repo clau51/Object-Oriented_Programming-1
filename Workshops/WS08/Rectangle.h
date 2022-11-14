@@ -7,8 +7,8 @@ namespace sdds
 {
    class Rectangle : public LblShape
    {
-      int m_width;
-      int m_height;
+      int m_width{};
+      int m_height{};
 
    public:
       Rectangle();

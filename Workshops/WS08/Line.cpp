@@ -1,10 +1,11 @@
-#include "Line.h"
+#include <cstring>
 #include <iostream>
+#include "Line.h"
 
 using namespace std;
 namespace sdds
 {
-   Line::Line() /* : LblShape() */ //Not necessary?...by default it will invoke default constructor of base class
+   Line::Line() : LblShape()  //Not necessary?...by default it will invoke default constructor of base class
    {
       m_length = 0;
    }
@@ -27,9 +28,20 @@ namespace sdds
       {
          ok = true;
          istr >> m_length;
-         newline = istr.get();
-         if (!(istr && newline == '\n')) //istr && newline != '\n' 3aa
+         if (istr)
          {
+            newline = istr.get();
+            if (newline != '\n') //istr && newline != '\n' 3aa
+            {
+               cout << "Invalid integer, try again: ";
+               cin.clear();
+               cin.ignore(1000, '\n');
+               ok = false;
+            }
+         }
+         else
+         {
+            cout << "Invalid integer, try again: ";
             cin.clear();
             cin.ignore(1000, '\n');
             ok = false;
@@ -39,10 +51,10 @@ namespace sdds
 
    void Line::draw(std::ostream& ostr) const
    {
-      if (m_length && label() != nullptr) //possibly fix
+      if (m_length && label())
       {
          ostr << label();
-         for (int i = 0; i < m_length; i++)
+         for (int i = 0; i < m_length - (signed int)(strlen(label())); i++)
          {
             ostr << "=";
          }

@@ -12,7 +12,7 @@ namespace sdds
       const char* label()const;
 
    public:
-      LblShape();
+      LblShape() = default;
       LblShape(const char* cString);
       LblShape(const LblShape& LblShape) = delete;
       LblShape& operator=(const LblShape& LblShape) = delete;

@@ -20,7 +20,12 @@ int main() {
    Rectangle BadRectangle("Bad one", 1, 1);
    Line* L = new Line("Separator", 50);
    Rectangle* R = new Rectangle("Container", 30, 5);
-   Shape* S[2] = { L, R };
+   //Shape* S[1] = L; //Base* pBase = Derived (Line)
+   //Shape* S[2] = R; //Base* pBase = Derived (Rectangle)
+   //Line X("Separator", 50);
+
+   Shape* S[2] = { L, R }; //S is an array of pointers of type Shape
+  
    cout << "Nothing should be printed between these two lines" << endl;
    cout << "------------------------------------" << endl;
    cout << BadOne << BadRectangle;
@@ -45,14 +50,15 @@ int main() {
    cout << "Your output:" << endl;
    cout << *R << endl;
    cout << "printing Line and Rectangle using Shape pointers: " << endl;
-   cout << *S[0] << endl << *S[1] << endl;
+   
+   cout << *S[0] << endl << *S[1] << endl; // Shape& shape = L
    delete S[0];
    delete S[1];
    cout << "Reading the data from a file" << endl;
    ifstream file("ws8data.csv");
    Shape* sptr;
    char type;
-   while (file) {
+   while (file) { //While the file is open
       sptr = nullptr;
       type = 'x';
       file.get(type);

@@ -6,10 +6,10 @@ namespace sdds
 {
    class Line : public LblShape
    {
-      int m_length;
+      int m_length{}; //Do not initialize like this, because I have default constructor that is supposed to invoke constructor of base class?
 
    public:
-      Line();
+      Line(); /*= default;*/ //Can i do it like this
       Line(const char* cString, int length);
       virtual ~Line() = default; //non implemented, do i need one?
       void getSpecs(std::istream& istr) override;
