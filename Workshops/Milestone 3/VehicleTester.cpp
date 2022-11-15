@@ -27,8 +27,8 @@ int main() {
    Truck V;
    Truck C("abcd", "C car");
    // you can comment each test to develop your Vehicle step by step: 
-   TestIO(V);
-   TestOperatorEqualEqual(C, V);
+   //TestIO(V);
+   //TestOperatorEqualEqual(C, V);
    TestValidations();
    return 0;
 }
@@ -98,7 +98,7 @@ void TestOperatorEqualEqual(Truck A, Truck B) {
       cout << "Bad Opertor==, fix your code" << endl;
    }
    cout << "opeator== (Vehicle):" << endl;
-   if (A == B) { //Bug?
+   if (A == B) {
       cout << "operator== with Vehicle works" << endl;
    }
    else {

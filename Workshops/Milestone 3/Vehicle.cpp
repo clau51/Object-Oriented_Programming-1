@@ -28,7 +28,10 @@ namespace sdds
 
    Vehicle::Vehicle(const char* licensePlate, const char* makeModel)
    {
-      if (licensePlate && makeModel && licensePlate[0] && makeModel[2])
+      //make a bool function to check validation
+      if (licensePlate && makeModel && licensePlate[0] && makeModel[2]
+         && strlen(licensePlate) >= 1 && strlen(licensePlate) <= 8 &&
+         strlen(makeModel) > 2)
       {
          //setEmpty(); //do i need to setEmpty() when creating a new object?
          std::strcpy(m_licensePlate, licensePlate);
@@ -203,7 +206,7 @@ namespace sdds
       //how to check if istream object failed while reading?
       else
       {
-         cout << "Enter License Plate Number: ";
+         cout << "Enter Licence Plate Number: ";
          do
          {
             ok = true;
@@ -213,7 +216,7 @@ namespace sdds
             {
                istr.clear();
                istr.ignore(1000, '\n');
-               cout << "Invalid License Plate, try again: ";
+               cout << "Invalid Licence Plate, try again: ";
                ok = false;
             }
             else
@@ -232,14 +235,14 @@ namespace sdds
             {
                istr.clear();
                istr.ignore(1000, '\n');
-               cout << "Invalid Make and Model, try again: ";
+               cout << "Invalid Make and model, try again: ";
                ok = false;
             }
             else
             {
                if (strlen(tempMakeModel) < 2)
                {
-                  cout << "Invalid Make and Model, try again: ";
+                  cout << "Invalid Make and model, try again: ";
                   ok = false;
                }
                else
@@ -271,7 +274,7 @@ namespace sdds
             if (m_parkingSpot) ostr << m_parkingSpot << endl;
             else ostr << "N/A" << endl;
 
-            ostr << "License Plate: " << m_licensePlate << endl;
+            ostr << "Licence Plate: " << m_licensePlate << endl;
 
             ostr << "Make and Model: " << m_makeModel << endl;
          }
