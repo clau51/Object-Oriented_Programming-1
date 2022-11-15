@@ -18,7 +18,6 @@ namespace sdds
       void draw(std::ostream& ostr = std::cout)const override;
    };
 
-
 }
 
 #endif
