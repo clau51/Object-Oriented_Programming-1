@@ -65,12 +65,6 @@ namespace sdds
       return *this;
    }
 
-   //*************************************************************************//
-   //*
-   //* MENU FUNCTIONS
-   //*
-   //***********************************************************************//
-
    //Two Argument Constructor - sets Menu object (receives title and identation)
    Menu::Menu(const char* str, int indent)
    {

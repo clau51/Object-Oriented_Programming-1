@@ -11,16 +11,16 @@ namespace sdds
       Menu m_mainMenu{"Parking Menu, select an action:", 0};
       Menu m_vehicleMenu{"Select type of the vehicle:", 1};
 
-      bool isEmpty()const;
+      bool isEmpty()const; 
       void parkingStatus()const;
-      void parkVehicle()const;
-      void returnVehicle()const;
+      void parkVehicle()const; //may not be const in future milestones
+      void returnVehicle()const; //may not be const in future milestones
       void listVehicle()const;
       void findVehicle()const;
-      bool closeParking()const;
+      bool closeParking()const; 
       bool exitParking()const;
       bool loadFile()const;
-      void saveFile()const;
+      void saveFile()const; //may not be const in future milestones
       Parking(const Parking& parking) = delete;
       Parking& operator=(const Parking& parking) = delete;
       Parking& setEmpty();

@@ -160,5 +160,45 @@ namespace sdds
       return ostr;
    }
 
+   char* lowerstrcpy(char des[], const char source[])
+   {
+      int i = 0, j = 0;
+      for (; source[i] != 0; i++)
+      {
+         des[j++] = tolower(source[i]);
+      }
+      des[j] = char(0);
+      return des;
+   }
+
+   char tolower(char ch)
+   {
+      if (ch >= 'A' && ch <= 'Z')
+      {
+         ch += ('a' - 'A');
+      }
+      return ch;
+   }
+
+   char toupper(char ch)
+   {
+      if (ch >= 'a' && ch <= 'z')
+      {
+         ch -= ('a' - 'A');
+      }
+      return ch;
+   }
+
+   char* upperstrcpy(char des[], const char source[])
+   {
+      int i = 0, j = 0;
+      for (; source[i] != 0; i++)
+      {
+         des[j++] = toupper(source[i]);
+      }
+      des[j] = char(0);
+      return des;
+   }
+
 
 }

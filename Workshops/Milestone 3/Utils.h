@@ -31,12 +31,19 @@ namespace sdds
 
    //Get integer from user in specific range
    int getIntRange(int min, int max, std::istream& istr = std::cin);
-   
+
    //Get user input for a yes or no question
    char getYesNo(const char* validChars);
 
    //Display a character 'x' number of times
    std::ostream& printChar(char character, int num, std::ostream& ostr = std::cout);
 
+   char* lowerstrcpy(char des[], const char source[]);
+
+   char tolower(char ch);
+
+   char toupper(char ch);
+
+   char* upperstrcpy(char des[], const char source[]);
 }
 #endif // !
