@@ -1,5 +1,11 @@
-#define _CRT_SECURE_NO_WARNINGS
+//Name: Carmen Lau
+//Student ID: 166689216
+//Email: clau51@myseneca.ca
+//Date: November 17, 2022
+//Section: NBB
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 
+#define _CRT_SECURE_NO_WARNINGS
 #include <cstring>
 #include "Vehicle.h"
 #include "Utils.h"
@@ -7,6 +13,12 @@
 using namespace std;
 namespace sdds
 {
+   const int MIN_CHAR_LICENSE = 1;
+   const int MAX_CHAR_LICENSE = 8;
+   const int MIN_CHAR_MAKEMODEL = 2;
+   const int MAX_CHAR_MAKEMODEL = 60;
+
+   //Set to empty state
    Vehicle& Vehicle::setEmpty()
    {
       m_licensePlate[0] = '\0';
@@ -16,87 +28,92 @@ namespace sdds
       return *this;
    }
 
+   //Check if object is empty
    bool Vehicle::isEmpty()const
    {
       return m_licensePlate[0] == '\0';
    }
 
-   Vehicle::Vehicle() //needed or not?
+   //Allocate and copy m_makeModel
+   Vehicle& Vehicle::alAndCp(const char* str)
    {
-      setEmpty();
+      if (str && str[0])
+      {
+         m_makeModel = new char[sdds::strlen(str) + 1];
+         std::strcpy(m_makeModel, str);
+      }
+
+      return *this;
    }
 
-   Vehicle::Vehicle(const char* licensePlate, const char* makeModel)
-   {
-      //make a bool function to check validation
-      if (licensePlate && makeModel && licensePlate[0] && makeModel[2]
-         && strlen(licensePlate) >= 1 && strlen(licensePlate) <= 8 &&
-         strlen(makeModel) > 2)
-      {
-         //setEmpty(); //do i need to setEmpty() when creating a new object?
-         std::strcpy(m_licensePlate, licensePlate);
+   //Vehicle::Vehicle()
+   //{
+   //   setEmpty();
+   //}
 
-         m_makeModel = new char[strlen(makeModel) + 1];
-         std::strcpy(m_makeModel, makeModel);
+   //Constructor: receives licensePlate and makeModel parameters set to default
+   Vehicle::Vehicle(const char* licensePlate, const char* makeModel) : ReadWritable()
+   {
+      if (licensePlate && makeModel && licensePlate[0] && makeModel[0])
+      {
          m_parkingSpot = 0;
-      }
-      else
-      {
-         setEmpty();
+         setLicensePlate(licensePlate);
+         setMakeModel(makeModel);
       }
    }
 
+   //Copy assignment
    Vehicle& Vehicle::operator=(const Vehicle& vehicle)
    {
       if (this != &vehicle)
       {
          if (vehicle)
          {
-            //call setEmpty to set nullptr, not necessary?
-            deallocate();
-
-            m_makeModel = new char[strlen(vehicle.m_makeModel) + 1];
-            std::strcpy(m_makeModel, vehicle.m_makeModel);
-            std::strcpy(m_licensePlate, vehicle.m_licensePlate);
+            setMakeModel(vehicle.m_makeModel);
+            setLicensePlate(vehicle.m_licensePlate);
             m_parkingSpot = vehicle.m_parkingSpot;
          }
       }
       return *this;
    }
 
+   //Check if this object is empty or not
    Vehicle::operator bool() const
    {
       return !isEmpty();
    }
 
+   //Copy constructor
    Vehicle::Vehicle(const Vehicle& vehicle)
    {
-      setEmpty(); //need because not value initialized
       *this = vehicle;
    }
 
+   //Destructor
    Vehicle::~Vehicle()
    {
-      deallocate();
+      delete[] m_makeModel;
    }
 
+   //Get license plate
    const char* Vehicle::getLicensePlate()const
    {
       return m_licensePlate;
    }
 
+   //Get make and model
    const char* Vehicle::getMakeModel()const
    {
       return m_makeModel;
    }
 
-   Vehicle& Vehicle::setMakeModel(const char* makeModel) //possibly use in constructor?
+   //Set make and model
+   Vehicle& Vehicle::setMakeModel(const char* makeModel)
    {
-      if (makeModel && makeModel[2]) //instructions say if value null or empty? but cant be less than 2 chars?
+      if (makeModel && makeModel[0] && sdds::strlen(makeModel) >= 2)
       {
          deallocate();
-         m_makeModel = new char[strlen(makeModel) + 1];
-         std::strcpy(m_makeModel, makeModel);
+         alAndCp(makeModel);
       }
       else
       {
@@ -107,6 +124,22 @@ namespace sdds
       return *this;
    }
 
+   //Set license plate
+   Vehicle& Vehicle::setLicensePlate(const char* licensePlate)
+   {
+      if (licensePlate && licensePlate[0] && sdds::strlen(licensePlate) >= MIN_CHAR_LICENSE && sdds::strlen(licensePlate) <= MAX_CHAR_LICENSE)
+      {
+         upperstrcpy(m_licensePlate, licensePlate);
+      }
+      else
+      {
+         setEmpty();
+      }
+
+      return *this;
+   }
+
+   //Deallocate memory for m_makeModel
    Vehicle& Vehicle::deallocate()
    {
       delete[] m_makeModel;
@@ -115,11 +148,13 @@ namespace sdds
       return *this;
    }
 
+   //Get parking spot
    int Vehicle::getParkingSpot() const
    {
       return m_parkingSpot;
    }
 
+   //Set parking spot
    Vehicle& Vehicle::setParkingSpot(int parkingSpot)
    {
       if (parkingSpot >= 0)
@@ -131,10 +166,10 @@ namespace sdds
          deallocate();
          setEmpty();
       }
-
       return *this;
    }
 
+   //Check if left operand is equal to right operand (receiving string)
    bool Vehicle::operator==(const char* licensePlate)const
    {
       bool ok = false;
@@ -143,19 +178,13 @@ namespace sdds
       {
          if (licensePlate && licensePlate[0])
          {
-            char tempOrig[8 + 1];
-            char tempNew[8 + 1];
+            char tempLicense[MAX_CHAR_LICENSE + 1];
 
-            lowerstrcpy(tempOrig, m_licensePlate);
-            lowerstrcpy(tempNew, licensePlate);
+            upperstrcpy(tempLicense, licensePlate);
 
-            if (strcmp(tempOrig, tempNew) == 0)
+            if (sdds::strcmp(m_licensePlate, tempLicense) == 0)
             {
                ok = true;
-            }
-            else
-            {
-               ok = false;
             }
          }
       }
@@ -163,107 +192,173 @@ namespace sdds
       return ok;
    }
 
+   //Check if left operand is equal to right operand (reciving Vehicle object reference)
    bool Vehicle::operator==(const Vehicle& vehicle)const
    {
       return *this == vehicle.m_licensePlate;
    }
 
-   //Are we assumming valid data?
-   istream& Vehicle::read(istream& istr) //is this assuming valid data?
+   //Read from istr: get input based on if its in comma seperated value
+   std::istream& Vehicle::read(istream& istr)
    {
-      bool ok;
-      char tempLicense[8 + 1];
-      char tempMakeModel[60 + 1];
-
-      m_parkingSpot = 0;
+      bool success;
       if (isCsv())
       {
-         //Vehicle temp; 
-
-         istr >> m_parkingSpot;
-         istr.ignore();
-
-         if (istr)
-         {
-            istr.getline(tempLicense, 9, ',');
-            upperstrcpy(m_licensePlate, tempLicense);
-         }
-
-         if (istr)
-         {
-            istr.getline(tempMakeModel, 61, ',');
-            deallocate();
-            //can make a Vehicle object instead?
-            m_makeModel = new char[strlen(tempMakeModel) + 1];
-            std::strcpy(m_makeModel, tempMakeModel);
-         }
-         else
-         {
-            setEmpty();
-         }
+         success = readParkingSpot(istr, ',');
+         if (success) readLicensePlate(istr, ',');
+         if (success) readMakeModel(istr, ',');
       }
-
-      //how to check if istream object failed while reading?
       else
       {
          cout << "Enter Licence Plate Number: ";
          do
          {
-            ok = true;
-            istr.getline(tempLicense, 9, '\n');
-            //istr >> tempLicense;
-            if (!istr || strlen(tempLicense) < 1)
+            success = readLicensePlate(istr, '\n');
+            if (!success)
             {
-               istr.clear();
-               istr.ignore(1000, '\n');
                cout << "Invalid Licence Plate, try again: ";
-               ok = false;
             }
-            else
-            {
-               upperstrcpy(m_licensePlate, tempLicense);
-            }
-         } while (!ok);
+         } while (!success);
 
          cout << "Enter Make and Model: ";
          do
          {
-            ok = true;
-            istr.getline(tempMakeModel, 61, '\n');
-            //istr >> tempMakeModel;
-            if (!istr) //Wrong output: ab works, but it must have more than 2 chars...
+            success = readMakeModel(istr, '\n');
+            if (!success)
             {
-               istr.clear();
-               istr.ignore(1000, '\n');
                cout << "Invalid Make and model, try again: ";
-               ok = false;
             }
-            else
-            {
-               if (strlen(tempMakeModel) < 2)
-               {
-                  cout << "Invalid Make and model, try again: ";
-                  ok = false;
-               }
-               else
-               {
-                  deallocate();
-                  //can make a Vehicle object instead?
-                  m_makeModel = new char[strlen(tempMakeModel) + 1];
-                  std::strcpy(m_makeModel, tempMakeModel);
-               }
-            }
-         } while (!ok);
+         } while (!success);
       }
 
       return istr;
    }
 
+   //Read parking spot
+   bool Vehicle::readParkingSpot(istream& istr, char delimiter) //receive a parkingSpot variable?
+   {
+      char delimit;
+      bool success = true;
+      int parkingSpot;
+      istr >> parkingSpot;
+      if (istr)
+      {
+         delimit = istr.get();
+         if (delimit != delimiter)
+         {
+            success = false;
+            cin.clear();
+            cin.ignore(1000, delimiter);
+            if (isCsv())
+            {
+               setEmpty();
+            }
+         }
+         else
+         {
+            if (isCsv())
+            {
+               setParkingSpot(parkingSpot);
+            }
+            else
+            {
+               success = false;
+               if (parkingSpot >= 0)
+               {
+                  setParkingSpot(parkingSpot);
+                  success = true;
+               }
+            }
+         }
+      }
+      else
+      {
+         istr.clear();
+         istr.ignore(1000, delimiter);
+         success = false;
+      }
+
+      return success;
+   }
+
+   //Read license plate
+   bool Vehicle::readLicensePlate(std::istream& istr, char delimiter)
+   {
+      bool success = true;
+      char tempLicense[MAX_CHAR_LICENSE + 1];
+      istr.getline(tempLicense, MAX_CHAR_LICENSE + 1, delimiter);
+      if (!istr)
+      {
+         istr.clear();
+         istr.ignore(1000, delimiter);
+         if (isCsv())
+         {
+            setEmpty();
+         }
+         success = false;
+      }
+      else
+      {
+         if (isCsv())
+         {
+            setLicensePlate(tempLicense);
+         }
+         else
+         {
+            success = false;
+            if (sdds::strlen(tempLicense) >= MIN_CHAR_LICENSE && sdds::strlen(tempLicense) <= MAX_CHAR_LICENSE)
+            {
+               setLicensePlate(tempLicense);
+               success = true;
+            }
+         }
+      }
+
+      return success;
+   }
+
+   //Read make and model
+   bool Vehicle::readMakeModel(std::istream& istr, char delimiter)
+   {
+      bool success = true;
+      char tempMakeModel[MAX_CHAR_MAKEMODEL + 1];
+      istr.getline(tempMakeModel, MAX_CHAR_MAKEMODEL + 1, delimiter);
+      if (!istr)
+      {
+         istr.clear();
+         istr.ignore(1000, delimiter);
+         if (isCsv())
+         {
+            setEmpty();
+         }
+         success = false;
+      }
+      else
+      {
+         if (isCsv())
+         {
+            setMakeModel(tempMakeModel);
+         }
+         else
+         {
+            success = false;
+            if (sdds::strlen(tempMakeModel) >= MIN_CHAR_MAKEMODEL)
+            {
+               setMakeModel(tempMakeModel);
+               success = true;
+            }
+         }
+      }
+
+      return success;
+   }
+
+   //Write to ostr: display parking spot, license plate, make and model
    ostream& Vehicle::write(ostream& ostr)const
    {
       if (*this)
       {
-         writeType();
+         writeType(ostr);
          if (isCsv())
          {
             ostr << m_parkingSpot << "," << m_licensePlate << "," << m_makeModel << ",";
