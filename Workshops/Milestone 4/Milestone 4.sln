@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Milestone 4", "Milestone 4.vcxproj", "{00A38F14-F8AA-4A85-A625-F09222C2E603}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00A38F14-F8AA-4A85-A625-F09222C2E603}.Debug|x64.ActiveCfg = Debug|x64
+		{00A38F14-F8AA-4A85-A625-F09222C2E603}.Debug|x64.Build.0 = Debug|x64
+		{00A38F14-F8AA-4A85-A625-F09222C2E603}.Debug|x86.ActiveCfg = Debug|Win32
+		{00A38F14-F8AA-4A85-A625-F09222C2E603}.Debug|x86.Build.0 = Debug|Win32
+		{00A38F14-F8AA-4A85-A625-F09222C2E603}.Release|x64.ActiveCfg = Release|x64
+		{00A38F14-F8AA-4A85-A625-F09222C2E603}.Release|x64.Build.0 = Release|x64
+		{00A38F14-F8AA-4A85-A625-F09222C2E603}.Release|x86.ActiveCfg = Release|Win32
+		{00A38F14-F8AA-4A85-A625-F09222C2E603}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {97DB1F42-2DA3-4537-A2AA-102568B2A5DF}
+	EndGlobalSection
+EndGlobal

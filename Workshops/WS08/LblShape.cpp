@@ -1,47 +1,125 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <cstring>
+//Name: Carmen Lau
+//Student ID: 166689216
+//Email: clau51@myseneca.ca
+//Date: November 18, 2022
+//Section: NBB
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
+#include <iostream>
 #include "LblShape.h"
+#include "Utils.h"
+
+using namespace std;
 
 namespace sdds
 {
+   //Allocate and copy m_label
+   LblShape& LblShape::alAndCp(const char* str)
+   {
+      if (str && str[0])
+      {
+         m_label = new char[strlen(str) + 1];
+         sdds::strcpy(m_label, str);
+      }
+
+      return *this;
+   }
+
+   //Returns m_label
    const char* LblShape::label() const
    {
       return m_label;
    }
-   
-   //LblShape::LblShape()
-   //{
-   //   m_label = nullptr; //Don't need to do? m_label is already initialized to null
-   //}
 
-   LblShape::LblShape(const char* cString)
-   {
-      if (cString && cString[0])
-      {
-         m_label = new char[strlen(cString) + 1];
-         strcpy(m_label, cString);
-      }
-      //else
-      //{
-      //   m_label = nullptr; //Already initialized to null (in the class)
-      //}
-   }
-   
-   LblShape::~LblShape()
+   //Deallocate memory for m_label
+   LblShape& LblShape::deallocate()
    {
       delete[] m_label;
       m_label = nullptr;
+
+      return *this;
    }
 
+   //One argument constructor (receives a string)
+   LblShape::LblShape(const char* cString)
+   {
+      alAndCp(cString);
+   }
+
+   //Destructor Deallocates m_label
+   LblShape::~LblShape()
+   {
+      delete[] m_label;
+   }
+
+   //Reads a comma delimited string
    void LblShape::getSpecs(std::istream& istr)
    {
-      char label[50 + 1];
-      istr.getline(label, 51, ',');
+      deallocate();
+      m_label = getDynCstr(',', istr);
+      if (!m_label || !m_label[0])
+      {
+         m_label = nullptr;
+      }
+      ////Deallocate before doing anything
+      //deallocate();
 
-      delete[] m_label;      
-      m_label = new char[strlen(label) + 1];
-      strcpy(m_label, label);
+      //if (istr)
+      //{
+      //   alAndCp(label);
+      //}
+      //else
+      //{
+      //   istr.clear();
+      //   istr.ignore(1000, ',');
+      //}
+
+      //delete[] label;
    }
+
+   //Check if object is valid;
+   LblShape::operator bool() const
+   {
+      return m_label != nullptr;
+   }
+
+   //Helper: read an int
+   bool readInt(char delimiter, int& member, istream& istr)
+   {
+      bool success = true;
+      char delimit;
+
+      istr >> member;
+      if (istr)
+      {
+         delimit = istr.get();
+         if (delimit != delimiter)
+         {
+            istr.ignore(1000, delimiter);
+            success = false;
+         }
+      }
+      else
+      {
+         istr.clear();
+         istr.ignore(1000, delimiter);
+         success = false;
+      }
+
+      return success;
+   }
+
+   //Print a character a number of times
+   ostream& printChar(char character, int num, ostream& ostr)
+   {
+      for (int i = 0; i < num; i++)
+      {
+         ostr << character;
+      }
+
+      return ostr;
+   }
+
 }
 
 

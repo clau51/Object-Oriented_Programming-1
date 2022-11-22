@@ -23,6 +23,7 @@ int main() {
    //Shape* S[1] = L; //Base* pBase = Derived (Line)
    //Shape* S[2] = R; //Base* pBase = Derived (Rectangle)
    //Line X("Separator", 50);
+   //X.getSpecs(cin);
 
    Shape* S[2] = { L, R }; //S is an array of pointers of type Shape
   

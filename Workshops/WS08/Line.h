@@ -1,3 +1,10 @@
+//Name: Carmen Lau
+//Student ID: 166689216
+//Email: clau51@myseneca.ca
+//Date: November 18, 2022
+//Section: NBB
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
 #ifndef SDDS_LINE_H_
 #define SDDS_LINE_H_
 #include "LblShape.h"
@@ -6,15 +13,23 @@ namespace sdds
 {
    class Line : public LblShape
    {
-      int m_length{}; //Do not initialize like this, because I have default constructor that is supposed to invoke constructor of base class?
-
+      int m_length{};
+      
+      //Set the whole object to a safe empty state
+      Line& setEmpty();
    public:
-      Line(); /*= default;*/ //Can i do it like this
-      Line(const char* cString, int length);
-      virtual ~Line() = default; //non implemented, do i need one?
-      void getSpecs(std::istream& istr) override;
-      void draw(std::ostream& ostr = std::cout)const override;
 
+      //Default constructor
+      Line() = default;
+
+      //Two argument constructor: receives a string and int
+      Line(const char* cString, int length);
+
+      //Override: reads comma-separated Line from istream
+      void getSpecs(std::istream& istr) override;
+
+      //Override: draws the line
+      void draw(std::ostream& ostr = std::cout)const override;
    };
 
 

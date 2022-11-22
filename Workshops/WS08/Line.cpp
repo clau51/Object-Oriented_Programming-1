@@ -1,15 +1,27 @@
-#include <cstring>
+//Name: Carmen Lau
+//Student ID: 166689216
+//Email: clau51@myseneca.ca
+//Date: November 18, 2022
+//Section: NBB
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
 #include <iostream>
 #include "Line.h"
+#include "Utils.h"
 
 using namespace std;
 namespace sdds
 {
-   Line::Line() : LblShape()  //Not necessary?...by default it will invoke default constructor of base class
+   //Set the whole object to a safe empty state
+   Line& Line::setEmpty()
    {
+      deallocate();
       m_length = 0;
+
+      return *this;
    }
 
+   //Two argument constructor: receives a string and int
    Line::Line(const char* cString, int length) : LblShape(cString)
    {
       if (length > 0)
@@ -18,50 +30,37 @@ namespace sdds
       }
    }
 
+   //Override: reads comma-separated Line from istream
    void Line::getSpecs(std::istream& istr)
    {
-      char newline;
-      bool ok;
+      bool success;
+
       LblShape::getSpecs(istr);
 
-      do
+      if (label())
       {
-         ok = true;
-         istr >> m_length;
-         if (istr)
+         success = readInt('\n', m_length, istr);
+         if (!(success && m_length > 0))
          {
-            newline = istr.get();
-            if (newline != '\n') //istr && newline != '\n' 3aa
-            {
-               cout << "Invalid integer, try again: ";
-               cin.clear();
-               cin.ignore(1000, '\n');
-               ok = false;
-            }
-         }
-         else
-         {
-            cout << "Invalid integer, try again: ";
-            cin.clear();
-            cin.ignore(1000, '\n');
-            ok = false;
-         }
-      } while (!ok);
-   }
-
-   void Line::draw(std::ostream& ostr) const
-   {
-      if (m_length && label())
-      {
-         ostr << label();
-         for (int i = 0; i < m_length - (signed int)(strlen(label())); i++)
-         {
-            ostr << "=";
+            setEmpty();
          }
       }
    }
 
-
-
-
+   //Override: draws the line
+   void Line::draw(std::ostream& ostr) const
+   {
+      if (*this)
+      {
+         ostr << label();
+         for (int i = 0; i < m_length - strlen(label()); i++)
+         {
+            ostr << "=";
+         }
+      }
+      //else //tester...
+      //{
+      //   ostr << "***ERROR: INVALID LINE!***" << endl;
+      //}
+   }
 }

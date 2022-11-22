@@ -69,9 +69,11 @@ namespace sdds
       {
          if (vehicle)
          {
+            ReadWritable::operator=(vehicle);
             setMakeModel(vehicle.m_makeModel);
             setLicensePlate(vehicle.m_licensePlate);
             m_parkingSpot = vehicle.m_parkingSpot;
+            /*setCsv(vehicle.isCsv());*/  //might need to fix...is this where im supposed to set it?
          }
       }
       return *this;
