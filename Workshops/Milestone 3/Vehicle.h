@@ -26,14 +26,6 @@ namespace sdds
       //Allocate and copy m_makeModel
       Vehicle& alAndCp(const char* str);
 
-      //Read parking spot
-      bool readParkingSpot(std::istream& istr, char delimiter);
-
-      //Read license plate
-      bool readLicensePlate(std::istream& istr, char delimiter);
-
-      //Read make and model
-      bool readMakeModel(std::istream& istr, char delimiter);
    public:
       //Vehicle();
 
@@ -68,10 +60,10 @@ namespace sdds
       Vehicle& deallocate();
 
       //Set parking spot
-      Vehicle& setParkingSpot(int parkingSpot);
+      bool setParkingSpot(int parkingSpot);
 
       //Set license plate
-      Vehicle& setLicensePlate(const char* licensePlate);
+      bool setLicensePlate(const char* licensePlate);
 
       //Check if left operand is equal to right operand (receiving string)
       bool operator==(const char* licensePlate)const;

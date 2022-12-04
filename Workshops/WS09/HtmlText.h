@@ -1,5 +1,7 @@
 #ifndef SDDS_HTMLTEXT_H_
 #define SDDS_HTMLTEXT_H_
+
+#include <iostream>
 #include "Text.h"
 #include "Utils.h"
 
@@ -19,6 +21,11 @@ namespace sdds
       operator bool()const override
       {
          return m_title != nullptr;
+      }
+
+      void lol()
+      {
+         std::cout << (*this)[0] << std::endl;
       }
    };
 

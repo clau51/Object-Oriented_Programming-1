@@ -24,13 +24,13 @@ namespace sdds
    int strcmp(const char* s1, const char* s2);
 
    //Get integer value from user
-   int getInt(std::istream& istr = std::cin);
+   //int getInt(std::istream& istr = std::cin);
 
    //Get positive integer value from user
-   int getIntPositive(std::istream& istr = std::cin);
+   //int getIntPositive(std::istream& istr = std::cin);
 
-   //Get integer from user in specific range
-   int getIntRange(int min, int max, std::istream& istr = std::cin);
+   ////Get integer from user in specific range
+   //int getIntRange(int min, int max, std::istream& istr = std::cin);
 
    //Get user input for a yes or no question
    char getYesNo(const char* validChars);
@@ -38,14 +38,24 @@ namespace sdds
    //Display a character 'x' number of times
    std::ostream& printChar(char character, int num, std::ostream& ostr = std::cout);
 
-   char* lowerstrcpy(char des[], const char source[]);
-
-   char tolower(char ch);
-
    char toupper(char ch);
 
    char* upperstrcpy(char des[], const char source[]);
 
+   int readIntValidate(std::istream& istr, char delimiter, const char* msg);
+
    int readInt(std::istream& istr, char delimiter);
+
+   int readIntNonNegative(std::istream& istr, char delimiter);
+
+   int readIntRange(std::istream& istr, char delimiter, int min, int max);
+
+   void getStringValidation(char* string, int minChars, int maxChars, const char* prompt, std::istream& istr = std::cin);
+
+   int gettry(std::istream& istr = std::cin);
+
+   void readBoolValidation(bool& value, char delimiter, const char* errMsg, std::istream& istr = std::cin);
+
+
 }
 #endif // !

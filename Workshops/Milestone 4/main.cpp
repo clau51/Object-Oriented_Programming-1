@@ -19,6 +19,8 @@ void CarAfterTest(Car C, Car B);
 void MotorcycleAfterTest(Motorcycle M, Motorcycle N);
 void deallocate(Vehicle*);
 int main() {
+   Car l;
+   Car meow(l);
    Car* c = new Car;
    Motorcycle* m = new Motorcycle;
    cout << "Milestone 4, Car and Motorcycle: " << endl;

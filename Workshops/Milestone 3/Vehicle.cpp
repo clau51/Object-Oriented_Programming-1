@@ -125,18 +125,21 @@ namespace sdds
    }
 
    //Set license plate
-   Vehicle& Vehicle::setLicensePlate(const char* licensePlate)
+   bool Vehicle::setLicensePlate(const char* licensePlate)
    {
+      bool success = false;
       if (licensePlate && licensePlate[0] && sdds::strlen(licensePlate) >= MIN_CHAR_LICENSE && sdds::strlen(licensePlate) <= MAX_CHAR_LICENSE)
       {
          upperstrcpy(m_licensePlate, licensePlate);
+         success = true;
       }
       else
       {
+         deallocate();
          setEmpty();
       }
 
-      return *this;
+      return success;
    }
 
    //Deallocate memory for m_makeModel
@@ -155,18 +158,20 @@ namespace sdds
    }
 
    //Set parking spot
-   Vehicle& Vehicle::setParkingSpot(int parkingSpot)
+   bool Vehicle::setParkingSpot(int parkingSpot)
    {
+      bool success = false;
       if (parkingSpot >= 0)
       {
          m_parkingSpot = parkingSpot;
+         success = true;
       }
       else
       {
          deallocate();
          setEmpty();
       }
-      return *this;
+      return success;
    }
 
    //Check if left operand is equal to right operand (receiving string)
@@ -202,158 +207,48 @@ namespace sdds
    std::istream& Vehicle::read(istream& istr)
    {
       bool success;
+      int parkingSpot;
+      char licensePlate[MAX_CHAR_LICENSE + 1];
+      char makeModel[MAX_CHAR_MAKEMODEL + 1];
+
+      m_parkingSpot = 0;
       if (isCsv())
       {
-         success = readParkingSpot(istr, ',');
-         if (success)
+         parkingSpot = readIntNonNegative(istr, ',');
+         if (parkingSpot != -1)
          {
-            success = readLicensePlate(istr, ',');
-         }
-         if (success) readMakeModel(istr, ',');
-      }
-      else
-      {
-         cout << "Enter License Plate Number: ";
-         do
-         {
-            success = readLicensePlate(istr, '\n');
-            if (!success)
-            {
-               cout << "Invalid License Plate, try again: ";
-            }
-         } while (!success);
-
-         cout << "Enter Make and Model: ";
-         do
-         {
-            success = readMakeModel(istr, '\n');
-            if (!success)
-            {
-               cout << "Invalid Make and model, try again: ";
-            }
-         } while (!success);
-      }
-
-      return istr;
-   }
-
-   //Read parking spot
-   bool Vehicle::readParkingSpot(istream& istr, char delimiter) //receive a parkingSpot variable?
-   {
-      char delimit;
-      bool success = true;
-      int parkingSpot;
-      istr >> parkingSpot;
-      if (istr)
-      {
-         delimit = istr.get();
-         if (delimit != delimiter)
-         {
-            success = false;
-            cin.clear();
-            cin.ignore(1000, delimiter);
-            if (isCsv())
-            {
-               setEmpty();
-            }
+            m_parkingSpot = parkingSpot;
+            istr.getline(licensePlate, MAX_CHAR_LICENSE + 1, ',');
+            istr.getline(makeModel, MAX_CHAR_MAKEMODEL + 1, ',');
          }
          else
-         {
-            if (isCsv())
-            {
-               setParkingSpot(parkingSpot);
-            }
-            else
-            {
-               success = false;
-               if (parkingSpot >= 0)
-               {
-                  setParkingSpot(parkingSpot);
-                  success = true;
-               }
-            }
-         }
-      }
-      else
-      {
-         istr.clear();
-         istr.ignore(1000, delimiter);
-         success = false;
-      }
-
-      return success;
-   }
-
-   //Read license plate
-   bool Vehicle::readLicensePlate(std::istream& istr, char delimiter)
-   {
-      bool success = true;
-      char tempLicense[MAX_CHAR_LICENSE + 1];
-      istr.getline(tempLicense, MAX_CHAR_LICENSE + 1, delimiter);
-      if (!istr)
-      {
-         istr.clear();
-         istr.ignore(1000, delimiter);
-         if (isCsv())
          {
             setEmpty();
          }
-         success = false;
-      }
-      else
-      {
-         if (isCsv())
+
+         if (istr)
          {
-            setLicensePlate(tempLicense);
+            success = setLicensePlate(licensePlate);
+            if (success)
+            {
+               setMakeModel(makeModel);
+            }
          }
          else
          {
-            success = false;
-            if (sdds::strlen(tempLicense) >= MIN_CHAR_LICENSE && sdds::strlen(tempLicense) <= MAX_CHAR_LICENSE)
-            {
-               setLicensePlate(tempLicense);
-               success = true;
-            }
-         }
-      }
-
-      return success;
-   }
-
-   //Read make and model
-   bool Vehicle::readMakeModel(std::istream& istr, char delimiter)
-   {
-      bool success = true;
-      char tempMakeModel[MAX_CHAR_MAKEMODEL + 1];
-      istr.getline(tempMakeModel, MAX_CHAR_MAKEMODEL + 1, delimiter);
-      if (!istr)
-      {
-         istr.clear();
-         istr.ignore(1000, delimiter);
-         if (isCsv())
-         {
+            deallocate();
             setEmpty();
+            istr.clear();
+            istr.ignore(1000, '\n');
          }
-         success = false;
       }
       else
       {
-         if (isCsv())
-         {
-            setMakeModel(tempMakeModel);
-         }
-         else
-         {
-            success = false;
-            if (sdds::strlen(tempMakeModel) >= MIN_CHAR_MAKEMODEL)
-            {
-               setMakeModel(tempMakeModel);
-               success = true;
-            }
-         }
-      }
+         readStringValidation(licensePlate, MIN_CHAR_LICENSE, MAX_CHAR_LICENSE, "Invalid License Plate, try again: ", istr);
+         readStringValidation(makeModel, MIN_CHAR_MAKEMODEL, MAX_CHAR_MAKEMODEL, "Invalid Make and model, try again: ", istr);
 
-      return success;
+      }
+         return istr;
    }
 
    //Write to ostr: display parking spot, license plate, make and model

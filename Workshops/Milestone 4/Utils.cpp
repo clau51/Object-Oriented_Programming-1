@@ -12,7 +12,9 @@
 //
 /////////////////////////////////////////////////////////////////
 ***********************************************************************/
+#define _CRT_SECURE_NO_WARNINGS //NEEEED TO REMOVE*****************
 #include <iostream>
+#include <cstring> //GETTTTTT RIDDDDDDDDDDDD OF
 #include "Utils.h"
 
 using namespace std;
@@ -56,22 +58,41 @@ namespace sdds
       return des;
    }
 
+   int readIntValidate(istream& istr, char delimiter, const char* msg)
+   {
+      int input;
+      bool ok;
+
+      do
+      {
+         ok = true;
+         input = readInt(istr, delimiter);
+         if (input == -1)
+         {
+            cout << msg;
+            ok = false;
+         }
+      } while (!ok);
+
+      return input;
+   }
+
    int readInt(istream& istr, char delimiter)
    {
       char delimit;
       int input;
       istr >> input;
-      if (istr)
+      if (istr) //if input passes istr
       {
          delimit = istr.get();
-         if (delimit != delimiter)
+         if (delimit != delimiter) //if input is not valid (12aa)
          {
             input = -1;
             cin.clear();
             cin.ignore(1000, delimiter);
          }
       }
-      else
+      else //if input is not valid
       {
          istr.clear();
          istr.ignore(1000, delimiter);
@@ -81,7 +102,77 @@ namespace sdds
       return input;
    }
 
-      char getYesNo(const char* validChars)
+   int readIntNonNegative(istream& istr, char delimiter)
+   {
+      int input = readInt(istr, delimiter);
+      return input >= 0 ? input : -1;
+   }
+
+   void readBoolValidation(bool& value, char delimiter, const char* errMsg, istream& istr)
+   {
+      bool ok;
+      int input;
+      do
+      {
+         ok = false;
+         input = readInt(istr, delimiter);
+         if (input != -1)
+         {
+            if (input == 1 || input == 0)
+            {
+               value = input;
+               ok = true;
+            }
+            else
+            {
+               cout << errMsg;
+            }
+         }
+      } while (!ok);
+   }
+
+   int readIntRange(istream& istr, char delimiter, int min, int max)
+   {
+      int input = readInt(istr, delimiter);
+      return input >= min && input <= max ? input : -1;
+   }
+
+
+   void getStringValidation(char* string, int minChars, int maxChars, const char* prompt, istream& istr)
+   {
+      bool ok;
+      char* tempString = nullptr;
+      tempString = new char[maxChars + 1];
+      do
+      {
+         ok = true;
+         istr.getline(tempString, maxChars, '\n');
+         if (istr)
+         {
+            if (strlen(tempString) < minChars || strlen(tempString) > maxChars)
+            {
+               ok = false;
+               cout << prompt;
+            }
+            else
+            {
+               std::strcpy(string, tempString);
+            }
+         }
+         else
+         {
+            cout << prompt;
+            istr.clear();
+            istr.ignore(1000, '\n');
+            ok = false;
+         }
+      } while (!ok);
+
+      delete[] tempString;
+   }
+
+
+   char getYesNo(const char* validChars)
    {
       char userInput = 0;
       bool ok;
@@ -117,5 +208,29 @@ namespace sdds
       } while (!ok);
       return userInput;
    }
+
+   int gettry(std::istream& istr)
+   {
+      int userInput;
+      char newline;
+      bool ok;
+
+      do
+      {
+         ok = true;
+         istr >> userInput;
+         newline = istr.get();
+
+         if (newline != '\n')
+         {
+            std::cout << "Invalid Integer, try again: ";
+            istr.clear();
+            istr.ignore(1000, '\n');
+            ok = false;
+         }
+      } while (!ok);
+
+      return userInput;
+   };
 
 }

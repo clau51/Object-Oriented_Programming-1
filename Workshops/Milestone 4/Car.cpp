@@ -9,8 +9,9 @@ namespace sdds
    {
    }
 
-   Car::Car(const Car& car)
+   Car::Car(const Car& car) /*: Vehicle(car)*/
    {
+      //m_carWash = car.m_carWash;
       operator=(car);
    }
 
@@ -43,33 +44,14 @@ namespace sdds
    }
    std::istream& Car::read(std::istream& istr)
    {
+      char userInput;
       if (isCsv())
       {
-         int carWash;
-         bool ok;
          Vehicle::read(istr);
-
-         do
-         {
-            ok = false;
-            carWash = readInt(istr, '\n');
-            if (carWash != -1) //if input successful
-            {
-               if (carWash == 1 || carWash == 0)
-               {
-                  m_carWash = carWash;
-                  ok = true;
-               }
-               else
-               {
-                  cout << "Invalid entry, please try again: ";
-               }
-            }
-         } while (!ok);
+         readBoolValidation(m_carWash, '\n', "Invalid entry, please try again: ", istr);
       }
       else
       {
-         char userInput;
          cout << endl;
          cout << "Car information entry" << endl;
          Vehicle::read(istr);

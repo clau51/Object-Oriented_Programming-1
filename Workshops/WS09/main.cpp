@@ -14,28 +14,33 @@ Date       Reason
 #include "Text.h"
 using namespace std;
 using namespace sdds;
-void show(Text T)  {
+void show(Text T)
+{
    cout << "*" << T << "*" << endl;
 }
-void saveHtml(HtmlText H) {
-   ofstream("test.html")<<H;
+void saveHtml(HtmlText H)
+{
+   ofstream("dcwrLittle.html") << H;
 }
-void displayFile(const char* filename) {
+void displayFile(const char* filename)
+{
    cout << "File: " << filename << endl;
    cout << "==================================================" << endl;
    ifstream fin(filename);
    char ch = 0;
-   while (fin.get(ch)) {
+   while (fin.get(ch))
+   {
       cout << ch;
    }
    cout << endl << "==================================================" << endl;
 }
-int main() {
+int main()
+{
    Text T;
    Text Y;
    Text Z;
    ifstream test("test.txt");
-   ifstream dcwrLittle("test.txt");
+   ifstream dcwrLittle("dcwrLittle.txt");
    test >> T;
    dcwrLittle >> Y;
    Y = T;
@@ -46,11 +51,13 @@ int main() {
    HtmlText H3;
    dcwrLittle.seekg(0);
    dcwrLittle >> H1;
+   H1.lol();
+   
    dcwrLittle.seekg(0);
    dcwrLittle >> H2;
    H2 = H1;
    H3 = H2;
    saveHtml(H3);
-   displayFile("test.html");
+   displayFile("dcwrLittle.html");
    return 0;
 }

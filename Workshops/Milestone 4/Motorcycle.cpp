@@ -39,32 +39,14 @@ namespace sdds
    }
    std::istream& Motorcycle::read(std::istream& istr)
    {
-      int hasSideCar;
-      bool ok;
+      char userInput;
       if (isCsv())
       {
          Vehicle::read(istr);
-         do
-         {
-            ok = false;
-            hasSideCar = readInt(istr, '\n');
-            if (hasSideCar != -1) //if input successful
-            {
-               if (hasSideCar == 1 || hasSideCar == 0)
-               {
-                  m_hasSideCar = hasSideCar;
-                  ok = true;
-               }
-               else
-               {
-                  cout << "Invalid entry, please try again: ";
-               }
-            }
-         } while (!ok);
+         readBoolValidation(m_hasSideCar, '\n', "Invalid entry, please try again: ", istr);
       }
       else
       {
-         char userInput;
          cout << endl;
          cout << "Motorcycle information entry" << endl;
          Vehicle::read(istr);

@@ -20,15 +20,6 @@ namespace sdds
       //Allocate and copy m_makeModel
       Vehicle& alAndCp(const char* str);
 
-      //Read parking spot
-      bool readParkingSpot(std::istream& istr, char delimiter);
-
-      //Read license plate
-      bool readLicensePlate(std::istream& istr, char delimiter);
-
-      //Read make and model
-      bool readMakeModel(std::istream& istr, char delimiter);
-
    protected:
       //Set to empty state
       Vehicle& setEmpty();
