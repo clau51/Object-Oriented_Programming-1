@@ -52,22 +52,42 @@ namespace sdds
    //Read year, plate, address of the vehicle
    istream& VehicleBasic::read(istream& in)
    {
+      //cout << "Built year: ";
+      //m_year = getIntRange(MIN_VEHICLE_YEAR, MAX_VEHICLE_YEAR, in);
+      //cout << "License plate: ";
+      //in.getline(m_licensePlate, 10, '\n');
+      //if (!in)
+      //{
+      //   in.clear();
+      //   in.ignore(1000, '\n');
+      //}
+      //cout << "Current location: ";
+      //in.getline(m_address, 65, '\n');
+      //if (!in)
+      //{
+      //   in.clear();
+      //   in.ignore(1000, '\n');
+      //}
       cout << "Built year: ";
-      m_year = getIntRange(MIN_VEHICLE_YEAR, MAX_VEHICLE_YEAR, in);
-      cout << "License plate: ";
+      in.clear();
+      in >> m_year;
+      cout << "License Plate: ";
       in.getline(m_licensePlate, 10, '\n');
       if (!in)
       {
          in.clear();
          in.ignore(1000, '\n');
+         //setEmpty();
       }
-      cout << "Current location: ";
+      cout << "Address: ";
       in.getline(m_address, 65, '\n');
       if (!in)
       {
          in.clear();
          in.ignore(1000, '\n');
+         //setEmpty();
       }
+
 
       return in;
    }
